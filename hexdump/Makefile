@@ -42,7 +42,7 @@ LDFLAGS = $(arch)
 
 odir = objs$(arch)
 
-MAIN = solhexd
+MAIN = hexdump
 EXE = $(MAIN)$(arch)
 SRC = $(MAIN).c file-reader.c
 objs = $(SRC:.c=.o)
