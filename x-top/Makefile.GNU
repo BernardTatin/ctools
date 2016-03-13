@@ -29,18 +29,31 @@
 ##    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 ##    SOFTWARE.
 
-CC = cc
+os = $(shell uname)
+
+ifeq ($(os), SunOS)
+	CC ?= cc
+	LIBS = -L/usr/openwin/lib -lrt
+	arch ?= -m64
+	optim ?= -xO3
+	CFLAGS += -errtags=yes -std=c11
+	ipath = -I./solaris
+else ifeq ($(os), FreeBSD)
+	CC ?= gcc
+	LIBS = -L/usr/local/lib
+	arch ?= -m32
+	optim ?= -O3
+	CFLAGS += -Wall -pedantic -std=c99
+	ipath = -I/usr/local/include -I./freebsd
+endif
+
 LD = $(CC)
-LIBS = -L/usr/openwin/lib -lX11 -lpthread -lrt
+LIBS += -lX11 -lpthread
 RM = rm -f
 
-arch = -m64
-
-optim = -xO3
-
-ipath = -I./include -I./solaris
-CFLAGS = -std=c11 $(arch) $(optim) $(ipath) -errtags=yes -D_REENTRANT
-LDFLAGS = $(arch)
+ipath += -I./include
+CFLAGS += $(arch) $(optim) $(ipath) -D_REENTRANT
+LDFLAGS += $(arch)
 
 odir = objs$(arch)
 src = src
@@ -48,6 +61,7 @@ src = src
 MAIN = solar-stuff
 EXE = $(MAIN)$(arch)
 SRC = $(src)/$(MAIN).c $(src)/Xhelper.c $(src)/Xconf.c $(src)/solar-infos.c $(src)/clist.c
+
 objs = $(SRC:.c=.o)
 OBJS=$(objs:$(src)/%=$(odir)/%)
 
@@ -57,14 +71,16 @@ $(odir):
 	mkdir -p $@
 
 $(EXE): $(OBJS)
-	$(LD) -o $(EXE) $(OBJS) $(LDFLAGS) $(LIBS)
+		$(LD) -o $(EXE) $(OBJS) $(LDFLAGS) $(LIBS)
 
 $(odir)/%.o: $(src)/%.c
-	$(CC) -c $< -o $@ $(CFLAGS)
+		$(CC) -c $< -o $@ $(CFLAGS)
 
 test: $(EXE)
-	./$(EXE)
+		./$(EXE)
 
 clean:
-	$(RM) $(EXE) $(OBJS)
-	$(RM) a.out core
+		$(RM) $(EXE) $(OBJS)
+		$(RM) a.out core
+
+.PHONY: all test clean
