@@ -45,7 +45,7 @@ LDFLAGS = $(arch)
 odir = objs$(arch)
 src = src
 
-MAIN = solar-stuff
+MAIN = x-top
 EXE = $(MAIN)$(arch)
 SRC = $(src)/$(MAIN).c $(src)/Xhelper.c $(src)/Xconf.c $(src)/solar-infos.c $(src)/clist.c
 objs = $(SRC:.c=.o)
