@@ -1,0 +1,73 @@
+## ======================================================================
+## Makefile.freebsd
+## SolarStuff project
+## Author: Bernard TATIN <bernard dot tatin at outlook dot org>
+##
+## Created on 3 mars 2016, 22:20
+##
+## ======================================================================
+
+##    The MIT License (MIT)
+##
+##    Copyright (c) 2016 Bernard TATIN <bernard dot tatin at outlook dot org>
+##
+##    Permission is hereby granted, free of charge, to any person obtaining a copy
+##    of this software and associated documentation files (the "Software"), to deal
+##    in the Software without restriction, including without limitation the rights
+##    to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+##    copies of the Software, and to permit persons to whom the Software is
+##    furnished to do so, subject to the following conditions:
+##
+##    The above copyright notice and this permission notice shall be included in all
+##    copies or substantial portions of the Software.
+##
+##    THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+##    IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+##    FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+##    AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+##    LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+##    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+##    SOFTWARE.
+
+CC = gcc46
+LD = $(CC)
+LIBS = -lX11 -lpthread -lrt
+RM = rm -fv
+
+optim = -O3
+
+INCDIR = -I${PWD}/include -I${PWD}/freebsd
+CFLAGS += -std=c99 $(optim) $(INCDIR) -Wall -pedantic -D_REENTRANT
+#LDFLAGS +=
+LDADD += $(LIBS)
+
+SRCDIR = ${PWD}/src
+OBJDIR = ${PWD}/objs
+BINDIR = ${PWD}/bin
+
+
+MAIN = solar-stuff
+PROG = ${BINDIR}/$(MAIN)
+C_SRC = $(SRCDIR)/$(MAIN).c $(SRCDIR)/Xhelper.c $(SRCDIR)/Xconf.c $(SRCDIR)/solar-infos.c $(SRCDIR)/clist.c
+SRCS = $(C_SRC)
+INSTALL_DIR    = $(BINDIR)
+
+
+
+.include <bsd.prog.mk>
+
+#all: ${PROG}
+
+#${PROG}: ${OBJS}
+#${CC} -o ${PROG} ${OBJS} ${LIBS}
+
+#clean:
+#@echo "OBJS : ${OBJS}"
+#${RM} ${PROG} ${OBJS}
+
+#${OBJDIR}/%.o:${SRCDIR}/%.c
+#${CC} -c ${CFLAGS} $< -o $@
+
+#.include <bsd.obj.mk>
+#.include <bsd.prog.mk>
+

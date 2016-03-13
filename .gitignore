@@ -1,0 +1,45 @@
+# Object files
+*.o
+*.ko
+*.obj
+*.elf
+
+# Precompiled Headers
+*.gch
+*.pch
+
+# Libraries
+*.lib
+*.a
+*.la
+*.lo
+
+# Shared objects (inc. Windows DLLs)
+*.dll
+*.so
+*.so.*
+*.dylib
+
+# Executables
+*.exe
+*.out
+*.app
+*.i*86
+*.x86_64
+*.hex
+core
+
+solar-stuff
+solar-stuff-m32
+solar-stuff-m64
+objs*/
+
+# Debug files
+*.dSYM/
+
+# ide files
+/nbproject/
+.project
+.cproject
+.*.swp
+*~
