@@ -8,7 +8,7 @@
 #ifndef PRIVATE_FILE_HEADER_H_
 #define PRIVATE_FILE_HEADER_H_
 
-#define _FR_BUFFER_LEN		(32)
+#define _FR_BUFFER_LEN		(1024 * 4)
 
 typedef struct _FileReader {
 	char *filename;

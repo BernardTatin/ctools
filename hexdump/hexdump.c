@@ -132,8 +132,6 @@ int main(int argn, char *argv[]) {
     for (int i = 1; i < argn; i++) {
         char *arg = argv[i];
 
-        fprintf(stdout, "arg -> %s\n", arg);
-
         if (strcmp(arg, "--help") == 0) {
             dohelp(SUCCESS);
         } else {

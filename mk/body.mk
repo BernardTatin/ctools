@@ -1,8 +1,8 @@
 ##
-## File:   Makefile
+## File:   body.mk
 ## Author: Bernard TATIN <bernard dot tatin at outlook dot org>
 ##
-## Created on 20 février 2016, 23:20
+## Created on 13 mars 2016, 22:10
 ##
 
 
@@ -28,15 +28,25 @@
 ##    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 ##    SOFTWARE.
 
-include ../mk/main.mk
 
-ipath = 
+CFLAGS = -std=c11 $(arch) $(optim) $(ipath) -errtags=yes -D_REENTRANT
+LDFLAGS = $(arch)
 
-MAIN = hexdump
-SRC = $(MAIN).c file-reader.c
+EXE = $(MAIN)$(arch)
+objs = $(SRC:.c=.o)
+OBJS=$(objs:$(src)/%=$(odir)/%)
 
-include ../mk/body.mk
+all: $(odir) $(EXE)
 
-test: $(EXE)
-	./$(EXE) LICENSE README.md
-	./$(EXE) --to 32 LICENSE README.md
+$(odir):
+	mkdir -p $@
+
+$(EXE): $(OBJS)
+	$(LD) -o $(EXE) $(OBJS) $(LDFLAGS) $(LIBS)
+
+$(odir)/%.o: $(src)/%.c
+	$(CC) -c $< -o $@ $(CFLAGS)
+
+clean:
+	$(RM) $(EXE) $(OBJS)
+	$(RM) a.out core

@@ -1,8 +1,8 @@
 ##
-## File:   Makefile
+## File:   main.mk
 ## Author: Bernard TATIN <bernard dot tatin at outlook dot org>
 ##
-## Created on 20 février 2016, 23:20
+## Created on 13 mars 2016, 22:10
 ##
 
 
@@ -28,15 +28,13 @@
 ##    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 ##    SOFTWARE.
 
-include ../mk/main.mk
 
-ipath = 
+CC = cc
+LD = $(CC)
+RM = rm -f
 
-MAIN = hexdump
-SRC = $(MAIN).c file-reader.c
+arch = -m64
+fullarch = -xtarget=generic -xarch=sse2 $(arch) -xvector=simd
+optim = -xO3 
 
-include ../mk/body.mk
-
-test: $(EXE)
-	./$(EXE) LICENSE README.md
-	./$(EXE) --to 32 LICENSE README.md
+odir = objs$(arch)

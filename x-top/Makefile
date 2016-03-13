@@ -29,42 +29,18 @@
 ##    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 ##    SOFTWARE.
 
-CC = cc
-LD = $(CC)
+include ../mk/main.mk
+
 LIBS = -L/usr/openwin/lib -lX11 -lpthread -lrt
-RM = rm -f
-
-arch = -m64
-
-optim = -xO3
 
 ipath = -I./include -I./solaris
-CFLAGS = -std=c11 $(arch) $(optim) $(ipath) -errtags=yes -D_REENTRANT
-LDFLAGS = $(arch)
 
-odir = objs$(arch)
 src = src
 
 MAIN = x-top
-EXE = $(MAIN)$(arch)
 SRC = $(src)/$(MAIN).c $(src)/Xhelper.c $(src)/Xconf.c $(src)/solar-infos.c $(src)/clist.c
-objs = $(SRC:.c=.o)
-OBJS=$(objs:$(src)/%=$(odir)/%)
 
-all: $(odir) $(EXE)
-
-$(odir):
-	mkdir -p $@
-
-$(EXE): $(OBJS)
-	$(LD) -o $(EXE) $(OBJS) $(LDFLAGS) $(LIBS)
-
-$(odir)/%.o: $(src)/%.c
-	$(CC) -c $< -o $@ $(CFLAGS)
+include ../mk/body.mk
 
 test: $(EXE)
 	./$(EXE)
-
-clean:
-	$(RM) $(EXE) $(OBJS)
-	$(RM) a.out core
