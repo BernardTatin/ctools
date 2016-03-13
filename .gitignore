@@ -29,16 +29,15 @@
 *.hex
 core
 
-solar-stuff
-solar-stuff-m32
-solar-stuff-m64
+*-m32
+*-m64
 objs*/
 
 # Debug files
 *.dSYM/
 
 # ide files
-/nbproject/
+nbproject/
 .project
 .cproject
 .*.swp
