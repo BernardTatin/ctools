@@ -39,7 +39,7 @@
 #include <fcntl.h>
 #include <unistd.h>
 
-#include "include/basedef.h"
+#include "basedef.h"
 #include "file-reader.h"
 
 #define HLEN	16

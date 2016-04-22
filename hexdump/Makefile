@@ -28,13 +28,15 @@
 ##    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 ##    SOFTWARE.
 
-include ../mk/main.mk
 
-ipath = 
+src = src
+
+ipath = -Iinclude
 
 MAIN = hexdump
-SRC = $(MAIN).c file-reader.c
+SRC = $(src)/$(MAIN).c $(src)/file-reader.c
 
+include ../mk/main.mk
 include ../mk/body.mk
 
 test: $(EXE)
