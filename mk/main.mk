@@ -38,3 +38,5 @@ fullarch = -xtarget=generic -xarch=sse2 $(arch) -xvector=simd
 optim = -xO3 
 
 odir = objs$(arch)
+
+ipath += include

@@ -1,8 +1,8 @@
 ##
-## File:   body.mk
+## File:   Makefile
 ## Author: Bernard TATIN <bernard dot tatin at outlook dot org>
 ##
-## Created on 13 mars 2016, 22:10
+## Created on 20 février 2016, 23:20
 ##
 
 
@@ -28,24 +28,15 @@
 ##    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 ##    SOFTWARE.
 
+all: allHexdump
 
-CFLAGS = -std=c11 $(arch) $(optim) $(ipath) -errtags=yes -D_REENTRANT
-LDFLAGS = $(arch)
+clean: cleanHexdump
 
-EXE = $(MAIN)$(arch)
-OBJS=$(SRC:$(src)/%.c=$(odir)/%.o)
+allHexdump:
+	cd hexdump && $(MAKE) all
 
-all: $(odir) $(EXE)
+cleanHexdump:
+	cd hexdump && $(MAKE) clean
 
-$(odir):
-	mkdir -p $@
+.PHONY: all clean allHexdump cleanHexdump
 
-$(EXE): $(OBJS)
-	$(LD) -o $(EXE) $(OBJS) $(LDFLAGS) $(LIBS)
-
-$(odir)/%.o: $(src)/%.c
-	$(CC) -c $< -o $@ $(CFLAGS)
-
-clean:
-	$(RM) $(EXE) $(OBJS)
-	$(RM) a.out core
