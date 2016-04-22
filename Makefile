@@ -28,9 +28,9 @@
 ##    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 ##    SOFTWARE.
 
-all: allHexdump
+all: allHexdump allXTop
 
-clean: cleanHexdump
+clean: cleanHexdump cleanXTop
 
 allHexdump:
 	cd hexdump && $(MAKE) all
@@ -38,5 +38,12 @@ allHexdump:
 cleanHexdump:
 	cd hexdump && $(MAKE) clean
 
-.PHONY: all clean allHexdump cleanHexdump
+allXTop:
+	cd x-top && $(MAKE) all
+
+cleanXTop:
+	cd x-top && $(MAKE) clean
+
+
+.PHONY: all clean allHexdump cleanHexdump allXTop cleanXTop
 

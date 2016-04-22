@@ -42,3 +42,6 @@ nbproject/
 .cproject
 .*.swp
 *~
+
+# compilation product
+x-top/src/solar-stuff
