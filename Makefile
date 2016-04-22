@@ -28,22 +28,22 @@
 ##    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 ##    SOFTWARE.
 
-all: allHexdump allXTop
+targets = hexdump x-top
 
-clean: cleanHexdump cleanXTop
-
-allHexdump:
-	cd hexdump && $(MAKE) all
-
-cleanHexdump:
-	cd hexdump && $(MAKE) clean
-
-allXTop:
-	cd x-top && $(MAKE) all
-
-cleanXTop:
-	cd x-top && $(MAKE) clean
+all:
+	for t in $(targets) ; \
+         do cd $$t; \
+         $(MAKE) all; \
+		 cd ..; \
+	done
 
 
-.PHONY: all clean allHexdump cleanHexdump allXTop cleanXTop
+clean:
+	for t in $(targets) ; \
+         do cd $$t; \
+         $(MAKE) clean; \
+		 cd ..; \
+	done
+
+.PHONY: all clean
 
