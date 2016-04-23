@@ -58,7 +58,7 @@ static _Noreturn void dohelp(const int exitCode) {
 
 static int hexdump(const char* fileName) {
     void *fd = fr_open(fileName, NULL);
-    fprintf(stdout, "File : %s\n", fileName);
+    //fprintf(stdout, "File : %s\n", fileName);
     if (fd != NULL) {
         ssize_t read_len;
 
@@ -66,32 +66,33 @@ static int hexdump(const char* fileName) {
             char *dst = line;
             int rest = read_len;
             uint8_t *src = buffer;
-
-            int wbytes = sprintf(dst, "%08lx: ", fr_before_position(fd));
             uint8_t *old_src = src;
             int imax = min(HLEN, rest);
 
-            dst += wbytes;
+            dst += sprintf(dst, "%08lx  ", fr_before_position(fd));
             for (int i = 0; i < imax; i++) {
-                wbytes = sprintf(dst, "%02x ", *(src++));
-                dst += wbytes;
+				dst = put_hex_byte(dst, *(src++));
+				if (i == 7) {
+					*(dst++) = ' ';
+				}
             }
             if (imax < HLEN) {
                 for (int i = imax; i < HLEN; i++) {
-                    wbytes = sprintf(dst, "   ", *(src++));
-                    dst += wbytes;
+					dst = put3spaces(dst);
                 }
             }
             src = old_src;
-            *(dst++) = '\'';
+            *(dst++) = ' ';
+            *(dst++) = '|';
             for (int i = 0; i < imax; i++) {
 				*(dst++) = normalize_byte(*(src++));
             }
-            *(dst++) = '\'';
+            *(dst++) = '|';
             *dst = 0;
             fprintf(stdout, "%s\n", line);
         }
         fr_close(fd);
+		fprintf(stdout, "%08lx\n", fr_before_position(fd));
     } else {
         fprintf(stderr, "Cannot open file %s\n", fileName);
     }

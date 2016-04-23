@@ -43,5 +43,7 @@ nbproject/
 .*.swp
 *~
 
+*.log
+
 # compilation product
 x-top/src/solar-stuff

@@ -34,10 +34,11 @@ src = src
 ipath = -Iinclude
 
 MAIN = hexdump
-SRC = $(src)/$(MAIN).c $(src)/file-reader.c
+SRC = $(src)/$(MAIN).c $(src)/file-reader.c $(src)/hexops.c
 
 include ../mk/app.mk
 
 test: $(EXE)
-	./$(EXE) LICENSE README.md
-	./$(EXE) --to 32 LICENSE README.md
+	hexdump -Cv $(EXE) > ref.log
+	./$(EXE) $(EXE) > t.log
+	diff ref.log t.log
