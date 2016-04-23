@@ -36,8 +36,7 @@ ipath = -Iinclude
 MAIN = hexdump
 SRC = $(src)/$(MAIN).c $(src)/file-reader.c
 
-include ../mk/main.mk
-include ../mk/body.mk
+include ../mk/app.mk
 
 test: $(EXE)
 	./$(EXE) LICENSE README.md

@@ -29,7 +29,6 @@
 ##    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 ##    SOFTWARE.
 
-include ../mk/main.mk
 
 LIBS = -L/usr/openwin/lib -lX11 -lpthread -lrt
 
@@ -40,7 +39,7 @@ src = src
 MAIN = x-top
 SRC = $(src)/$(MAIN).c $(src)/Xhelper.c $(src)/Xconf.c $(src)/solar-infos.c $(src)/clist.c
 
-include ../mk/body.mk
+include ../mk/app.mk
 
 test: $(EXE)
 	./$(EXE)

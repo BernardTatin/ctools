@@ -1,5 +1,5 @@
 ##
-## File:   body.mk
+## File:   main.mk
 ## Author: Bernard TATIN <bernard dot tatin at outlook dot org>
 ##
 ## Created on 13 mars 2016, 22:10
@@ -28,6 +28,18 @@
 ##    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 ##    SOFTWARE.
 
+
+CC = cc
+LD = $(CC)
+RM = rm -f
+
+arch = -m64
+fullarch = -xtarget=generic -xarch=sse2 $(arch) -xvector=simd -erroff=%none
+optim = -xO3 
+
+odir = objs$(arch)
+
+ipath += include
 
 CFLAGS = -std=c11 $(arch) $(optim) $(ipath) -errtags=yes -D_REENTRANT
 LDFLAGS = $(arch)

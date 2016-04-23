@@ -37,7 +37,6 @@ all:
 		 cd ..; \
 	done
 
-
 clean:
 	for t in $(targets) ; \
          do cd $$t; \
