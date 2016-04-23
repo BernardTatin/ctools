@@ -41,13 +41,11 @@
 
 #include "basedef.h"
 #include "file-reader.h"
+#include "hexops.h"
 
 #define HLEN	16
 #define LLEN	256
 
-typedef struct {
-    char *fileName;
-} TSfileConfig;
 
 static uint8_t buffer[HLEN];
 static char line[LLEN];
@@ -57,25 +55,11 @@ static _Noreturn void dohelp(const int exitCode) {
     exit(exitCode);
 }
 
-static TSfileConfig *duplicate(TSfileConfig *fileConfig) {
-    TSfileConfig *fc = (TSfileConfig *) malloc(sizeof (TSfileConfig));
 
-    if (fc == NULL) {
-        fprintf(stdout, "ERROR: cannot allocate memory\n");
-        exit(FAILURE);
-    }
-    fc->fileName = fileConfig->fileName;
-
-    fileConfig->fileName = NULL;
-
-    return fc;
-}
-
-static int hexdump(TSfileConfig *fc) {
-    void *fd = fr_open(fc->fileName, NULL);
-    fprintf(stdout, "File : %s\n", fc->fileName);
+static int hexdump(const char* fileName) {
+    void *fd = fr_open(fileName, NULL);
+    fprintf(stdout, "File : %s\n", fileName);
     if (fd != NULL) {
-        ssize_t addr = 0;
         ssize_t read_len;
 
         while ((read_len = fr_read(fd, buffer, HLEN)) > 0) {
@@ -83,7 +67,7 @@ static int hexdump(TSfileConfig *fc) {
             int rest = read_len;
             uint8_t *src = buffer;
 
-            int wbytes = sprintf(dst, "%08lx: ", addr);
+            int wbytes = sprintf(dst, "%08lx: ", fr_before_position(fd));
             uint8_t *old_src = src;
             int imax = min(HLEN, rest);
 
@@ -101,33 +85,22 @@ static int hexdump(TSfileConfig *fc) {
             src = old_src;
             *(dst++) = '\'';
             for (int i = 0; i < imax; i++) {
-                uint8_t b = *(src++);
-                if (b < 32 || b >= 127) {
-                    *(dst++) = '.';
-                } else {
-                    *(dst++) = (char) b;
-                }
+				*(dst++) = normalize_byte(*(src++));
             }
             *(dst++) = '\'';
             *dst = 0;
-            dst = line;
-            addr += HLEN;
             fprintf(stdout, "%s\n", line);
         }
         fr_close(fd);
     } else {
-        fprintf(stderr, "Cannot open file %s\n", fc->fileName);
+        fprintf(stderr, "Cannot open file %s\n", fileName);
     }
 
-    free(fc);
     return SUCCESS;
 }
 
 int main(int argn, char *argv[]) {
     int retCode = SUCCESS;
-    TSfileConfig fileConfig = {
-        NULL
-    };
 
     for (int i = 1; i < argn; i++) {
         char *arg = argv[i];
@@ -135,8 +108,7 @@ int main(int argn, char *argv[]) {
         if (strcmp(arg, "--help") == 0) {
             dohelp(SUCCESS);
         } else {
-            fileConfig.fileName = arg;
-            hexdump(duplicate(&fileConfig));
+            hexdump(arg);
         }
     }
     return retCode;

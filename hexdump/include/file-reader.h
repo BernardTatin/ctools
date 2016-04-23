@@ -25,5 +25,10 @@ int fr_read(void *fr_block, uint8_t *buffer, const int len);
  * close a file-reader
  */
 void fr_close(void *fr_block);
+/**
+ * position in the file stream
+ */
+int64_t fr_before_position(void *fr_block);
+int64_t fr_position(void *fr_block);
 
 #endif /* FILE_READER_H_ */

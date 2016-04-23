@@ -13,6 +13,8 @@
 typedef struct _FileReader {
 	char *filename;
 	uint8_t *buffer;
+	int64_t position;
+	int64_t before_position;
 	int ptr_out;
 	int count;
 	int file_handle;

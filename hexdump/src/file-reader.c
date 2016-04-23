@@ -32,11 +32,25 @@ static int fr_fill_buffer(TSFileReader *fr) {
 /**
  * memory allocation for a file-reader structure
  */
-void *fr_alloc(void) {
-	TSFileReader *fr = (TSFileReader *)calloc(1, sizeof(TSFileReader));
-
-	return (void *)fr;
+static inline void *fr_alloc(void) {
+	return calloc(1, sizeof(TSFileReader));
 }
+
+/**
+ * position in the file stream
+ */
+int64_t fr_before_position(void *fr_block) {
+	TSFileReader *fr = (TSFileReader *)fr_block;
+
+	return fr->before_position;
+}
+
+int64_t fr_position(void *fr_block) {
+	TSFileReader *fr = (TSFileReader *)fr_block;
+
+	return fr->position;
+}
+
 /**
  * open a file-reader
  */
@@ -71,6 +85,8 @@ int fr_read(void *fr_block, uint8_t *buffer, const int len) {
 		memmove(buffer, fr->buffer + fr->ptr_out, real_len);
 		fr->ptr_out += real_len;
 	}
+	fr->before_position = fr->position;
+	fr->position += (int64_t)real_len;
 	return real_len;
 }
 /**
