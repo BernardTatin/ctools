@@ -16,9 +16,6 @@
 typedef int TDFileHandle;
 typedef enum { FHNotOpen = -1 } TEFileHValues;
 
-typedef int TDFileHandle;
-typedef enum { FHNotOpen = -1 } TEFileHValues;
-
 typedef struct _FileReader {
 	char *filename;
 	int64_t position;
