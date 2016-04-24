@@ -34,7 +34,7 @@ src = src
 ipath = -Iinclude
 
 MAIN = hexdump
-SRC = $(src)/$(MAIN).c $(src)/file-reader.c $(src)/hexops.c
+SRC = $(src)/$(MAIN).c $(src)/file-reader.c $(src)/hexops.c $(src)/rbuffer.c
 
 include ../mk/app.mk
 

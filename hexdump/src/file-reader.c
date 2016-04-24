@@ -16,27 +16,24 @@
 #include <unistd.h>
 
 #include "basedef.h"
+#include "rbuffer.h"
 #include "file-reader.h"
 
 #include "private-file-header.h"
 
 static int fr_fill_buffer(TSFileReader *fr) {
-	int r = read(fr->file_handle, fr->buffer, _FR_BUFFER_LEN);
+	int r = read(fr->file_handle, rb_get_buffer(fr->rbuffer), _FR_BUFFER_LEN);
 	if (r < 0) {
 		r = 0;
 	}
-	fr->ptr_out = 0;
-	fr->count = r;
+	rb_reset(fr->rbuffer, r);
 	return r;
 }
 
 static void fr_free(void *vfr) {
 	if (vfr != NULL) {
 		TSFileReader *fr = (TSFileReader *)vfr;
-		if (fr->buffer != NULL) {
-			free(fr->buffer);
-			fr->buffer = NULL;
-		}
+		rb_free(fr->rbuffer);
 		free(fr);
 	}
 }
@@ -49,12 +46,7 @@ static void *fr_alloc(void) {
 		fprintf(stderr, "Cannot allocate memory!!!\n");
 		exit (FAILURE);
 	}
-	fr->buffer = (uint8_t *)calloc(_FR_BUFFER_LEN, sizeof(uint8_t));
-	if (fr->buffer == NULL) {
-		fr_free(fr);
-		fprintf(stderr, "Cannot allocate memory!!!\n");
-		exit (FAILURE);
-	}
+	fr->rbuffer = rb_allocate(_FR_BUFFER_LEN);
 	return fr;
 }
 
@@ -98,12 +90,12 @@ int fr_read(void *fr_block, uint8_t *buffer, const int len) {
 		fr_fill_buffer(fr);
 	}
 
-	int real_len = min(len, fr->count - fr->ptr_out);
+	int real_len = min(len, fr->rbuffer->count - fr->rbuffer->ptr_out);
 	if (real_len < 0) {
 		real_len = 0;
 	} else {
-		memmove(buffer, fr->buffer + fr->ptr_out, real_len);
-		fr->ptr_out += real_len;
+		memmove(buffer, fr->rbuffer->buffer + fr->rbuffer->ptr_out, real_len);
+		fr->rbuffer->ptr_out += real_len;
 	}
 	fr->before_position = fr->position;
 	fr->position += (int64_t)real_len;
