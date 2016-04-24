@@ -8,6 +8,7 @@
 #include <stdlib.h>
 #include <stdint.h>
 #include <stdbool.h>
+#include <stdio.h>
 #include <string.h>
 #include <sys/types.h>
 #include <sys/stat.h>
@@ -29,11 +30,32 @@ static int fr_fill_buffer(TSFileReader *fr) {
 	return r;
 }
 
+static void fr_free(void *vfr) {
+	if (vfr != NULL) {
+		TSFileReader *fr = (TSFileReader *)vfr;
+		if (fr->buffer != NULL) {
+			free(fr->buffer);
+			fr->buffer = NULL;
+		}
+		free(fr);
+	}
+}
 /**
  * memory allocation for a file-reader structure
  */
-static inline void *fr_alloc(void) {
-	return calloc(1, sizeof(TSFileReader));
+static void *fr_alloc(void) {
+	TSFileReader *fr =  (TSFileReader *)calloc(1, sizeof(TSFileReader));
+	if (fr == NULL) {
+		fprintf(stderr, "Cannot allocate memory!!!\n");
+		exit (FAILURE);
+	}
+	fr->buffer = (uint8_t *)calloc(_FR_BUFFER_LEN, sizeof(uint8_t));
+	if (fr->buffer == NULL) {
+		fr_free(fr);
+		fprintf(stderr, "Cannot allocate memory!!!\n");
+		exit (FAILURE);
+	}
+	return fr;
 }
 
 /**
@@ -59,14 +81,12 @@ void *fr_open(const char *file_name, void *fr_block) {
 	if (fr == NULL) {
 		fr = fr_alloc();
 	}
-	memset(fr, 0, sizeof(TSFileReader));
 	fr->filename = (char *)file_name;
 	fr->file_handle = open(fr->filename, O_RDONLY);
-	if (fr->file_handle == -1) {
-		free (fr);
+	if (fr->file_handle == FHNotOpen) {
+		fr_free (fr);
 		return NULL;
 	}
-	fr->buffer = (uint8_t *)calloc(_FR_BUFFER_LEN, sizeof(uint8_t));
 	return (void *)fr;
 }
 /**
@@ -95,15 +115,10 @@ int fr_read(void *fr_block, uint8_t *buffer, const int len) {
 void fr_close(void *fr_block) {
 	TSFileReader *fr = (TSFileReader *)fr_block;
 	if (fr != NULL) {
-		if (fr->file_handle != -1) {
+		if (fr->file_handle != FHNotOpen) {
 			close(fr->file_handle);
 		}
-		if (fr->buffer != NULL) {
-			free(fr->buffer);
-		}
-		free (fr);
+		fr_free(fr_block);
 	}
-
 }
-
 

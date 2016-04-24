@@ -10,6 +10,9 @@
 
 #define _FR_BUFFER_LEN		(1024 * 4)
 
+typedef int TDFileHandle;
+typedef enum { FHNotOpen = -1 } TEFileHValues;
+
 typedef struct _FileReader {
 	char *filename;
 	uint8_t *buffer;
@@ -17,12 +20,12 @@ typedef struct _FileReader {
 	int64_t before_position;
 	int ptr_out;
 	int count;
-	int file_handle;
+	TDFileHandle file_handle;
 	bool eof;
 } TSFileReader;
 
 static inline bool fr_isopen(TSFileReader *fr) {
-	return (fr != NULL) && (fr->file_handle != -1);
+	return (fr != NULL) && (fr->file_handle != FHNotOpen);
 }
 
 static inline bool fr_iseof(TSFileReader *fr) {
