@@ -115,13 +115,7 @@ int fr_read(void *fr_block, uint8_t *buffer, const int len) {
 		fr_fill_buffer(fr);
 	}
 
-	int real_len = min(len, fr->rbuffer->count - fr->rbuffer->ptr_out);
-	if (real_len < 0) {
-		real_len = 0;
-	} else {
-		memmove(buffer, fr->rbuffer->buffer + fr->rbuffer->ptr_out, real_len);
-		fr->rbuffer->ptr_out += real_len;
-	}
+	int real_len = rb_read(fr->rbuffer, buffer, len);
 	fr->before_position = fr->position;
 	fr->position += (int64_t)real_len;
 	return real_len;

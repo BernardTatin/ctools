@@ -52,5 +52,12 @@ static inline void rb_reset(void *vrb, const int count) {
 	rb->ptr_out = 0;
 	rb->count = count;
 }
+
+static inline bool rb_isempty(TSRBuffer *rbuffer) {
+	int count = rbuffer->count;
+	return (count == 0) || (rbuffer->ptr_out+1 >= count);
+}
+
+int rb_read(void *vrb, void *buffer, const int len);
 #endif	/* RBUFFER_H */
 

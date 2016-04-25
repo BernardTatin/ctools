@@ -60,7 +60,6 @@ static inline bool fr_iseof(TSFileReader *fr) {
 }
 
 static inline bool fr_isempty(TSFileReader *fr) {
-	int count = fr->rbuffer->count;
-	return (count == 0) || (fr->rbuffer->ptr_out+1 >= count);
+	return rb_isempty(fr->rbuffer);
 }
 #endif /* PRIVATE_FILE_HEADER_H_ */

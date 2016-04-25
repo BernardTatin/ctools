@@ -34,9 +34,23 @@
 #include <stdint.h>
 #include <stdio.h>
 #include <time.h>
+#include <string.h>
 
 #include "rbuffer.h"
 #include "basedef.h"
+
+int rb_read(void *vrb, void *buffer, const int len) {
+	TSRBuffer *rbuffer = (TSRBuffer *)vrb;
+	int real_len = min(len, rbuffer->count - rbuffer->ptr_out);
+
+	if (real_len < 0) {
+		real_len = 0;
+	} else {
+		memmove(buffer, rbuffer->buffer + rbuffer->ptr_out, real_len);
+		rbuffer->ptr_out += real_len;
+	}
+	return real_len;
+}
 
 void *rb_allocate(const int buffer_size) {
     TSRBuffer *rb = (TSRBuffer *) calloc(1, sizeof (TSRBuffer));
