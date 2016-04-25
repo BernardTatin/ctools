@@ -18,7 +18,7 @@ CFLAGS = $(BASICOPTS) -xCC -Xc -Iinclude
 TARGETDIR_libctools=lib64
 
 
-all: $(TARGETDIR_libctools)/libctools.a
+all: $(TARGETDIR_libctools) $(TARGETDIR_libctools)/libctools.a
 
 ## Target: libctools
 OBJS_libctools =  \
@@ -32,12 +32,8 @@ $(TARGETDIR_libctools)/libctools.a: $(TARGETDIR_libctools) $(OBJS_libctools)
 
 
 # Compile source files into .o files
-$(TARGETDIR_libctools)/clist.o: $(TARGETDIR_libctools) src/clist.c
-	$(COMPILE.c) $(CFLAGS_libctools) $(CPPFLAGS_libctools) -o $@ src/clist.c
-
-$(TARGETDIR_libctools)/rbuffer.o: $(TARGETDIR_libctools) src/rbuffer.c
-	$(COMPILE.c) $(CFLAGS_libctools) $(CPPFLAGS_libctools) -o $@ src/rbuffer.c
-
+$(TARGETDIR_libctools)/%.o: src/%.c
+	$(COMPILE.c) $(CFLAGS_libctools) $(CPPFLAGS_libctools) -o $@ $<
 
 
 #### Clean target deletes all generated files ####

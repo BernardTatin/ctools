@@ -39,31 +39,30 @@
 #include "basedef.h"
 
 void *rb_allocate(const int buffer_size) {
-	TSRBuffer *rb = (TSRBuffer *)calloc(1, sizeof(TSRBuffer));
-	
-	if (rb == NULL) {
-		fprintf(stderr, "Cannot allocate memory !!!\n");
-		exit(FAILURE);
-	}
-	rb->size = buffer_size;
-	rb->buffer = (uint8_t *)calloc(1, buffer_size);
-	if (rb->buffer == NULL) {
-		free(rb);
-		fprintf(stderr, "Cannot allocate memory !!!\n");
-		exit(FAILURE);
-	}
-	return (void *)rb;
+    TSRBuffer *rb = (TSRBuffer *) calloc(1, sizeof (TSRBuffer));
+
+    if (rb == NULL) {
+        fprintf(stderr, "Cannot allocate memory !!!\n");
+        exit(FAILURE);
+    }
+    rb->size = buffer_size;
+    rb->buffer = (uint8_t *) calloc(1, buffer_size);
+    if (rb->buffer == NULL) {
+        free(rb);
+        fprintf(stderr, "Cannot allocate memory !!!\n");
+        exit(FAILURE);
+    }
+    return (void *) rb;
 }
 
-
 void rb_free(void *vrb) {
-	if (vrb != NULL) {
-		TSRBuffer *rb = (TSRBuffer *)vrb;
+    if (vrb != NULL) {
+        TSRBuffer *rb = (TSRBuffer *) vrb;
 
-		if (rb->buffer != NULL) {
-			free(rb->buffer);
-			rb->buffer = NULL;
-		}
-		free(rb);
-	}
+        if (rb->buffer != NULL) {
+            free(rb->buffer);
+            rb->buffer = NULL;
+        }
+        free(rb);
+    }
 }
