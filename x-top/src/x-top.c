@@ -73,8 +73,10 @@ static bool onKeyPress(XEvent *e) {
 }
 
 static void onExposeChild(void) {
-    XhDrawString(xconf_main.childStatus, 10, 12, "child window");
-    fprintf(stdout, "onExposeChild");
+    TSsysconf *sysconf = soli_sysconf();
+    
+    XhDrawString(xconf_main.childStatus, 10, 12, "%02d:%02d:%02d", sysconf->tm->tm_hour, sysconf->tm->tm_min, sysconf->tm->tm_sec);
+    fprintf(stdout, "onExposeChild\n");
 }
 
 static void onExposeMainWindow(Display *display, const int screen, const Window win) {
@@ -113,8 +115,6 @@ static void onExposeMainWindow(Display *display, const int screen, const Window 
     XhDrawString(xconf_main.win, x_offset, y_offset, "%lld MB physical memory, %lld MB free", sysconf->mem, sysconf->free_mem);
     y_offset += 20;
     XhDrawString(xconf_main.win, x_offset, y_offset, "average load : %9.2f | %9.2f | %9.2f", sysconf->load_av [LOADAVG_1MIN], sysconf->load_av [LOADAVG_5MIN], sysconf->load_av [LOADAVG_15MIN]);
-    y_offset += 20;
-    XhDrawString(xconf_main.win, x_offset, y_offset, "%02d:%02d:%02d", sysconf->tm->tm_hour, sysconf->tm->tm_min, sysconf->tm->tm_sec);
 }
 
 static int do_select(void) {
@@ -138,6 +138,14 @@ static void send_ExposeEvent(void) {
     ee.width = 660;
     ee.height = 220;
     XSendEvent(xconf_main.display, xconf_main.win, True, ExposureMask, (XEvent *) & ee);
+	
+    memset(&ee, 0, sizeof (XExposeEvent));
+    ee.type = Expose;
+    ee.display = xconf_main.display;
+    ee.window = xconf_main.childStatus;
+    ee.width = 640;
+    ee.height = 20;
+    XSendEvent(xconf_main.display, xconf_main.childStatus, True, ExposureMask, (XEvent *) & ee);
 }
 
 int main(int argc, char** argv) {
