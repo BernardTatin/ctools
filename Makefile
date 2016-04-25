@@ -31,6 +31,7 @@
 targets = hexdump x-top
 
 all:
+	cd lib && $(MAKE) all && cd ..
 	for t in $(targets) ; \
          do cd $$t; \
          $(MAKE) all; \
@@ -38,6 +39,7 @@ all:
 	done
 
 clean:
+	cd lib && $(MAKE) clean && cd ..
 	for t in $(targets) ; \
          do cd $$t; \
          $(MAKE) clean; \

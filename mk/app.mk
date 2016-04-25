@@ -42,7 +42,7 @@ odir = objs$(arch)
 ipath += include
 
 CFLAGS = -std=c11 $(arch) $(optim) $(ipath) -errtags=yes -D_REENTRANT
-LDFLAGS = $(arch)
+LDFLAGS = $(arch) -L../lib/lib64 -lctools
 
 EXE = $(MAIN)$(arch)
 OBJS=$(SRC:$(src)/%.c=$(odir)/%.o)

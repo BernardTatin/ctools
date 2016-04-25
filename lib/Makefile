@@ -15,7 +15,7 @@ CFLAGS = $(BASICOPTS) -xCC -Xc -Iinclude
 
 
 # Define the target directories.
-TARGETDIR_libctools=Sun-amd64-Solaris
+TARGETDIR_libctools=lib64
 
 
 all: $(TARGETDIR_libctools)/libctools.a

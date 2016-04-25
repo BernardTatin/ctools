@@ -31,10 +31,10 @@
 
 src = src
 
-ipath = -Iinclude
+ipath = -Iinclude -I../lib/include
 
 MAIN = hexdump
-SRC = $(src)/$(MAIN).c $(src)/file-reader.c $(src)/hexops.c $(src)/rbuffer.c
+SRC = $(src)/$(MAIN).c $(src)/file-reader.c $(src)/hexops.c
 
 include ../mk/app.mk
 

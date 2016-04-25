@@ -32,12 +32,12 @@
 
 LIBS = -L/usr/openwin/lib -lX11 -lpthread -lrt
 
-ipath = -I./include -I./solaris
+ipath = -I./include -I./solaris -I../lib/include
 
 src = src
 
 MAIN = x-top
-SRC = $(src)/$(MAIN).c $(src)/Xhelper.c $(src)/Xconf.c $(src)/solar-infos.c $(src)/clist.c
+SRC = $(src)/$(MAIN).c $(src)/Xhelper.c $(src)/Xconf.c $(src)/solar-infos.c
 
 include ../mk/app.mk
 
