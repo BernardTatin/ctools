@@ -33,10 +33,6 @@
 #ifndef BASEDEF_H
 #define	BASEDEF_H
 
-#ifdef	__cplusplus
-extern "C" {
-#endif
-
 
 #if !defined(SUCCESS)
 #define SUCCESS 0
@@ -54,9 +50,6 @@ static inline int min(int a, int b) {
 	}
 }
 
-#ifdef	__cplusplus
-}
-#endif
 
 #endif	/* BASEDEF_H */
 
