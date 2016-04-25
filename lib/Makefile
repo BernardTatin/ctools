@@ -10,7 +10,7 @@
 
 #### Compiler and tool definitions shared by all build targets #####
 CC = cc
-BASICOPTS = -xO3 -xarch=generic64
+BASICOPTS = -xO3 -xarch=generic64 -erroff=%none
 CFLAGS = $(BASICOPTS) -xCC -Xc -Iinclude
 
 

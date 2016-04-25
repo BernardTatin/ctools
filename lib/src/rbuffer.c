@@ -42,14 +42,14 @@ void *rb_allocate(const int buffer_size) {
     TSRBuffer *rb = (TSRBuffer *) calloc(1, sizeof (TSRBuffer));
 
     if (rb == NULL) {
-        fprintf(stderr, "Cannot allocate memory !!!\n");
+        // fprintf(stderr, "Cannot allocate memory !!!\n");
         exit(FAILURE);
     }
     rb->size = buffer_size;
     rb->buffer = (uint8_t *) calloc(1, buffer_size);
     if (rb->buffer == NULL) {
         free(rb);
-        fprintf(stderr, "Cannot allocate memory !!!\n");
+        // fprintf(stderr, "Cannot allocate memory !!!\n");
         exit(FAILURE);
     }
     return (void *) rb;

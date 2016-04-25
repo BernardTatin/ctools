@@ -41,9 +41,13 @@ typedef struct _TScl_element {
 
 static inline TScl_element *cl_elt_new(void *value) {
 	TScl_element *elt = (TScl_element *)calloc(1, sizeof(TScl_element));
-
+	if (elt == NULL) {
+        // fprintf(stderr, "Cannot allocate memory !!!\n");
+        exit(FAILURE);
+	}
 	elt->value = value;
 	elt->next = NULL;
+	return elt;
 }
 
 typedef struct _TScl_list {

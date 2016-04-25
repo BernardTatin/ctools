@@ -33,10 +33,15 @@
 #include <stdlib.h>
 #include <stdbool.h>
 
+#include "basedef.h"
 #include "clist.h"
 
 TScl_list *cl_list_new(void) {
 	TScl_list *list = (TScl_list *)calloc(1, sizeof(TScl_list));
+	if (list == NULL) {
+        // fprintf(stderr, "Cannot allocate memory !!!\n");
+        exit(FAILURE);
+	}
 	return list;
 }
 
