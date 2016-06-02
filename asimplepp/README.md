@@ -30,3 +30,5 @@ text files
 ----------
 
 __{{name}}__ is replaced by its value defined in an _aspp_ file.
+
+__{{include <file>}}__, __{{include "file"}}__ is replaced by the file contents. If the file contains __{{...}}__ instructions, they are evaluated.
