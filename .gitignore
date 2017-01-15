@@ -32,6 +32,7 @@ core
 *-m32
 *-m64
 objs*/
+.dep.inc
 
 # Debug files
 *.dSYM/
@@ -43,7 +44,17 @@ nbproject/
 .*.swp
 *~
 
+# trash
+log
 *.log
+*.tmp
 
 # compilation product
 x-top/src/solar-stuff
+
+# make
+.make.state.*
+
+# builds
+build/
+dist/
