@@ -7,6 +7,8 @@ compiler ?= gcc
 
 os = $(shell uname)
 osfull = $(shell uname -a)
+now = $(shell date "+%y%m%d-%H%M%S")
+perfs_file = $(os)-perfs/$(now).perfs
 
 RM = rm -f
 
@@ -48,12 +50,16 @@ clean:
 	@echo "OBJECTS = $(OBJECTS)"
 	-$(RM) $(OBJECTS) $(EXE)
 
-test:
+test-dir:
+	mkdir -p $(os)-perfs
+
+test: test-dir
 	$(RM) log; \
 	for compiler in gcc icc sun; do \
 		$(MAKE) LOOPS=2 compiler=$$compiler all; \
 		./read-files-perfs-$${compiler}.exe >> log; \
 	done; \
-	sort -k 7 log
+	echo "$(osfull)" > $(perfs_file); \
+	sort -k 7 log >> $(perfs_file);
 
-.PHONY: all clean test
+.PHONY: all clean test test-dir
