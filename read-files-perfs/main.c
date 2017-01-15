@@ -1,4 +1,4 @@
-/* 
+/*
  * File:   main.c
  * Author: bernard tatin
  *
@@ -56,7 +56,9 @@
 #define ONEK 1024
 #define ONEM (ONEK * ONEK)
 #define BUFFER_SIZE ONEM
-#define LOOPS 5
+#if !defined(LOOPS)
+#define LOOPS 10
+#endif
 #define ITERATIONS (LOOPS * 1024)
 
 #if defined(__SUNPRO_C)
@@ -75,7 +77,7 @@ static double now() {
 static inline int compute_data(unsigned char *data) {
 	int value = 0;
 	int fd = open(output_file, O_WRONLY);
-	
+
 	for (int i=0; i<BUFFER_SIZE; i += 1024) {
 		value += data[i];
 		write(fd, data, 1024);
@@ -86,7 +88,7 @@ static inline int compute_data(unsigned char *data) {
 
 static void test_fread(const char *fileName) {
     FILE *fp = fopen(fileName, "rb");
-	
+
     for (int i = 0; i < ITERATIONS; ++i) {
         fread(buffer, BUFFER_SIZE, 1, fp);
 		compute_data(buffer);
@@ -96,7 +98,7 @@ static void test_fread(const char *fileName) {
 
 static void test_read(const char *fileName) {
     int fd = open(fileName, O_RDONLY);
-	
+
     for (int i = 0; i < ITERATIONS; ++i) {
         read(fd, buffer, BUFFER_SIZE);
 		compute_data(buffer);
@@ -107,7 +109,7 @@ static void test_read(const char *fileName) {
 static void test_mmap(const char *fileName) {
     unsigned char *mmdata;
     int fd = open(fileName, O_RDONLY);
-	
+
     for (int i = 0; i < ITERATIONS; ++i) {
         mmdata = mmap(NULL, BUFFER_SIZE, PROT_READ, MAP_PRIVATE, fd, i * BUFFER_SIZE);
         // But if we don't touch it, it won't be read...
@@ -134,7 +136,7 @@ static void do_test(void (*fun)(const char *fileName), const char *fileName, con
 
 int main(int argn, char *argv[]) {
 	char *input_file = "/dev/zero";
-	
+
 	if (argn > 1) {
 		input_file = argv[1];
 	}
