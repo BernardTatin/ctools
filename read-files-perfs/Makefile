@@ -10,6 +10,14 @@ osfull = $(shell uname -a)
 now = $(shell date "+%y%m%d-%H%M%S")
 perfs_file = $(os)-perfs/$(now).perfs
 
+ifeq ($(os),Linux)
+all_compilers="gcc icc sun"
+endif
+
+ifeq ($(os),FreeBSD)
+all_compilers="gcc"
+endif
+
 RM = rm -f
 
 
@@ -55,7 +63,7 @@ test-dir:
 
 test: test-dir
 	$(RM) log; \
-	for compiler in gcc icc sun; do \
+	for compiler in $(all_compilers); do \
 		$(MAKE) LOOPS=2 compiler=$$compiler all; \
 		./read-files-perfs-$${compiler}.exe >> log; \
 	done; \
