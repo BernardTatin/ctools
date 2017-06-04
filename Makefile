@@ -28,21 +28,23 @@
 ##    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 ##    SOFTWARE.
 
+compiler ?= suncc
+
 targets = hexdump x-top
 
 all:
-	cd lib && $(MAKE) all && cd ..
+	cd lib && $(MAKE) compiler=$(compiler) all && cd ..
 	for t in $(targets) ; \
          do cd $$t; \
-         $(MAKE) all; \
+         $(MAKE) compiler=$(compiler) all; \
 		 cd ..; \
 	done
 
 clean:
-	cd lib && $(MAKE) clean && cd ..
+	cd lib && $(MAKE) compiler=$(compiler) clean && cd ..
 	for t in $(targets) ; \
          do cd $$t; \
-         $(MAKE) clean; \
+         $(MAKE) compiler=$(compiler) clean; \
 		 cd ..; \
 	done
 

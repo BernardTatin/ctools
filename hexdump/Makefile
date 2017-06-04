@@ -29,6 +29,7 @@
 ##    SOFTWARE.
 
 
+compiler ?= suncc
 src = src
 
 ipath = -Iinclude -I../lib/include
