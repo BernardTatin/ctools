@@ -35,7 +35,7 @@ RM = rm -f
 
 arch = -m64
 fullarch = -xtarget=generic -xarch=sse2 $(arch) -xvector=simd -erroff=%none
-optim = -xO3 
+optim =  
 
 odir = objs$(arch)
 

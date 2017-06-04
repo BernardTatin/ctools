@@ -10,9 +10,9 @@
 
 #### Compiler and tool definitions shared by all build targets #####
 CC = cc
-BASICOPTS = -xO3 -xarch=generic64 -erroff=%none
-CFLAGS = $(BASICOPTS) -xCC -Xc -Iinclude
-
+BASICOPTS = -m64 -erroff=%none
+CFLAGS = $(BASICOPTS)  -Iinclude
+# -xCC -Xc
 
 # Define the target directories.
 TARGETDIR_libctools=lib64
@@ -33,7 +33,7 @@ $(TARGETDIR_libctools)/libctools.a: $(TARGETDIR_libctools) $(OBJS_libctools)
 
 # Compile source files into .o files
 $(TARGETDIR_libctools)/%.o: src/%.c
-	$(COMPILE.c) $(CFLAGS_libctools) $(CPPFLAGS_libctools) -o $@ $<
+	$(CC) -c $(CFLAGS)  -o $@ $<
 
 
 #### Clean target deletes all generated files ####
