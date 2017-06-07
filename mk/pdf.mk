@@ -26,7 +26,6 @@ all: $(PDF_NAME)
 
 $(PFIGURES): %.pdf:%.eps
 	$(PS2EPS) $<
-	cp $@ diamondrule-eps-converted-to.pdf
 
 $(PDF_NAME): $(deps) $(PFIGURES)
 	$(PDFLATEX) $(ARTICLE_TEX)

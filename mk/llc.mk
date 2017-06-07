@@ -5,13 +5,13 @@
 ## Makefile created by Oracle Solaris Studio.
 ##
 
-CC = llc
+CC = clang
 LD = $(CC)
 
-arch = x86-64
+arch = -m64
 fullarch = -Wall -pedantic
-optim = -O=2
+optim = -O2
 
-CFLAGS = -O=c11 $(arch) $(optim) $(ipath) -D_REENTRANT
+CFLAGS = -std=c11 $(arch) $(optim) $(ipath) -D_REENTRANT
 LDFLAGS = $(arch) -L../lib/$(compiler)-lib$(arch) -lctools
 

@@ -1,4 +1,4 @@
-% !TeX root = optimize-unix.tex
+% !TeX root = main.tex
 % 'bt' LaTeX class
 
 % ------------ identification --------------
@@ -7,12 +7,16 @@
 
 
 % ------------ required packages ------------
-\RequirePackage{gfsbodoni}
+% \RequirePackage{ebgaramond}
+% \RequirePackage{inconsolata}
+\RequirePackage[T1]{fontenc}
+%%\RequirePackage{CormorantGaramond}
+\RequirePackage{CormorantGaramond}
+\RequirePackage{gillius2}
 \RequirePackage[utf8]{inputenc}
 \RequirePackage[francais]{babel}
-\RequirePackage[T1]{fontenc}
 
-\RequirePackage{fancyhdr} 
+\RequirePackage{fancyhdr}
 % ------------ journal options --------------
 \newif\ifbtjournal        	 \btjournalfalse
 \newif\ifbtbook         	\btbookfalse
@@ -20,6 +24,7 @@
 \newif\ifbtserif         	\btseriffalse
 
 \newcommand{\bt@columnmode}{}
+%% \newcommand{\bt@pointsize}{}
 \newlength\bt@pointsize
 \newif\ifwithpartalpha	\withpartalphafalse
 
@@ -28,7 +33,7 @@
    \btjournaltrue %
    \btsansseriftrue
    \btseriffalse
-   \withpartalphatrue
+   \withpartalphafalse
    \bt@pointsize=9pt
 }
 
@@ -36,17 +41,17 @@
    \btbooktrue %
    \btseriftrue
    \btsansseriffalse
-   \withpartalphatrue
+   \withpartalphafalse
    \bt@pointsize=12pt
 }
 
 \DeclareOption{sserif}{
 	\btsansseriftrue
-	\btseriffalse
+	   \btseriffalse
 }
 \DeclareOption{serif}{
 	\btseriftrue
-	\btsansseriffalse
+	   \btsansseriffalse
 }
 
 
@@ -99,12 +104,6 @@
 \ifwithpartalpha
 	\RequirePackage{chngcntr}
 \fi
-\ifbtsansserif
-	\renewcommand{\rmdefault}{phv} % Switch to Helvetica !
-\fi
-% \ifbtserif
-%	\renewcommand{\sfdefault}{phv} % Switch to Helvetica !
-%\fi
 
 % ------------ abstract configuration ------
 \newcommand{\bt@abstxt}{}
@@ -127,22 +126,18 @@
 
 \renewcommand{\figurename}{Fig.}
 
-\setlength\paperheight {297mm}%
-\setlength\paperwidth {210mm}
-
-\setlength{\hoffset}{1.0in}
 \setlength{\textheight}{9.625in}
 \setlength{\topmargin}{-0.625in}
 \setlength{\headheight}{0.0625in}
 \setlength{\headsep}{0.250in}
 \setlength{\footskip}{0.25in}
 \flushbottom
-\setlength{\textwidth}{5.325in}
+\setlength{\textwidth}{6.125in}
 \setlength{\columnsep}{0.17in}
 \setlength{\marginparwidth}{65em}
-%\newlength{\captionmargin}
-%\setlength{\captionmargin}{0in}
 
+\setlength\paperheight {297mm}%
+\setlength\paperwidth {210mm}
 \setlength{\evensidemargin}{-0.6875in} %1in-0.3125
 \setlength{\oddsidemargin}{-.58in} %1in-0.4375
 
@@ -200,22 +195,15 @@
 \newcommand{\bt@sectionfont}{}
 \newcommand{\sectionfont}[1]{\renewcommand{\bt@sectionfont}{#1}}
 
-% \renewcommand\part{\@startsection{part}{0}{\z@}%
-% 	{-2ex \@plus -1ex \@minus -.2ex}%
-%          {0.8ex \@plus .2ex}%
-% 	{%% \secdef
-% 	\reset@font\Large\sffamily\bfseries\scshape
-% 	\bt@sectionfont}
-% }
 
-\renewcommand\section{\@startsection{section}{1}{2em}%
+\renewcommand\section{\@startsection{section}{1}{\z@}%
                {-2ex \@plus -1ex \@minus -.2ex}%
                {0.8ex \@plus .2ex}%
                {\reset@font\normalsize\sffamily\bfseries\scshape\bt@sectionfont}}
 \renewcommand\subsection{\@startsection{subsection}{2}{\z@}%
                {-1.8ex\@plus -1ex \@minus -.2ex}%
                {0.8ex \@plus .2ex}%
-               {\reset@font\normalsize\sffamily\bfseries\bt@sectionfont - }}
+               {\reset@font\normalsize\sffamily\bfseries\bt@sectionfont}}
 \renewcommand\subsubsection{\@startsection{subsubsection}{3}{\z@}%
                {-1.8ex\@plus -1ex \@minus -.2ex}%
                {0.8ex \@plus .2ex}%
@@ -231,15 +219,11 @@
                {\reset@font\normalsize\sffamily\bfseries\bt@sectionfont}}
 
 
-%% \ifwithpartalpha
-	%\renewcommand{\thepart}{\emph{\alph{part}}}
-%	\counterwithin{section}{part}
-	%% \renewcommand{\thesection}{\thepart . \arabic{section}}
-%% \fi
+\ifwithpartalpha
+	\renewcommand{\thepart}{ - \emph{\alph{part}}  }
 
-%\makeatletter
-%% \def\@seccntformat#1{\csname the#1\endcsname.\ }
-%\makeatother
+	\counterwithin{section}{part}
+\fi
 
 \newcommand{\bt@indexterms}{}
 \newcommand{\CCScatlist}[1]{\renewcommand{\bt@indexterms}{#1}}
@@ -270,7 +254,7 @@
 
 \renewcommand{\@maketitle}{%
 	\begin{center}%
-		\sffamily
+		%% \sffamily
 		{%
 		   \huge\bfseries%
 	      	   \bt@sectionfont%
@@ -286,9 +270,10 @@
 		{%
 			\scriptsize
 			\ifx\bt@abstxt\bt@empty \else%
-				\leftskip = 1.33in \rightskip = \leftskip%
+				\leftskip = 0.53in \rightskip = \leftskip%
 				\begingroup%
-					{\bfseries Résumé}---\bt@abstxt%
+					{\bfseries Résumé} --- \bt@abstxt
+               \par
 				\endgroup\par%
 				\linediamond
 			\fi%
@@ -296,11 +281,9 @@
 				\tableofcontents
 				\lstlistoflistings
 				\listoffigures
+   			%\listoftables
 			\end{quote}
 			\linediamond
-			%\listoffigures
-			%\listoftables
-			%\linediamond
 		}
 	\end{center}%
 }
@@ -315,14 +298,14 @@
 }
 
 %% \setlength{\parindent}{2in}
-%\setlength{\textwidth}{5.525in}
-%\setlength{\columnsep}{0.17in}
-%\setlength{\marginparwidth}{45em}
+\setlength{\textwidth}{4.125in}
+\setlength{\columnsep}{0.17in}
+\setlength{\marginparwidth}{45em}
 %\newlength{\captionmargin}
 %\setlength{\captionmargin}{0in}
 
-%\setlength\paperheight {297mm}%
-%\setlength\paperwidth {210mm}
-%\setlength{\evensidemargin}{-0.6875in} %1in-0.3125
-%\setlength{\oddsidemargin}{-.58in} %1in-0.4375
+\setlength\paperheight {297mm}%
+\setlength\paperwidth {210mm}
+\setlength{\evensidemargin}{-0.6875in} %1in-0.3125
+\setlength{\oddsidemargin}{-.58in} %1in-0.4375
 % End of file 'bt.cls'.

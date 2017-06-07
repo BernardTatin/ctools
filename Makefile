@@ -30,10 +30,9 @@
 
 compiler ?= suncc
 
-targets = hexdump x-top
+targets = lib hexdump x-top openindiana
 
 all:
-	cd lib && $(MAKE) compiler=$(compiler) all && cd ..
 	for t in $(targets) ; \
          do cd $$t; \
          $(MAKE) compiler=$(compiler) all; \
@@ -41,7 +40,6 @@ all:
 	done
 
 clean:
-	cd lib && $(MAKE) compiler=$(compiler) clean && cd ..
 	for t in $(targets) ; \
          do cd $$t; \
          $(MAKE) compiler=$(compiler) clean; \

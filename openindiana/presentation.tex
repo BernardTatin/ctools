@@ -1,30 +1,24 @@
-% !TeX root = main.tex
+% !TeX root = concours.tex
 %% presentation.tex
 %% tout ce qui concerne la présentation
+\usepackage{hobsub-generic}
 
-
-%% \usepackage{gfsbodoni}
+\usepackage[T1]{fontenc}
+\usepackage{CormorantGaramond}
+\usepackage{gillius2}
 \usepackage[utf8]{inputenc}
 \usepackage[francais]{babel}
-\usepackage[T1]{fontenc}
-
+\usepackage{marginnote}
 \usepackage{makeidx}
 \usepackage{graphicx}
 
-%% pour la bibliographie
-%% \usepackage{cite}
-%% chicago style
-%% \usepackage[notes]{biblatex-chicago}
-%% \usepackage[authordate,backend=biber]{biblatex-chicago}
-%% \usepackage{chicago}
-%% \usepackage[backend=biber,authordate]{biblatex}
-%% \addbibresource{bibliographie.bib}
-\bibliographystyle{plain}
-\bibliography{bibliographie.bib}
-\newcommand{\docite}[1] {\footnotesize \textbf{\emph{ (\cite{#1}) }}\normalsize}
+\usepackage[osf]{sourcecodepro}
+% \usepackage[scaled]{beramono}
+
+% \addbibresource{bibliographie.bib}
+% \newcommand{\docite}[1] {\footnotesize \textbf{\emph{ (\cite{#1}) }}\normalsize}
 %% This turns references into clickable hyperlinks.
-%% \usepackage[bookmarks,backref=true,linkcolor=grey]{hyperref} %,colorlinks
-\usepackage[bookmarks,backref=section,linkcolor=grey]{hyperref} %,colorlinks
+\usepackage[bookmarks,backref=page,linkcolor=black]{hyperref} %,colorlinks
 \hypersetup{
   pdfauthor = {},
   pdftitle = {},
@@ -39,8 +33,6 @@
   linktocpage
 }
 
-\usepackage{makeidx}
-
 %% format des paragraphes
 \setlength{\parindent}{0cm}
 \setlength{\parskip}{4mm}
@@ -48,7 +40,7 @@
 
 \usepackage{listings}
 \usepackage{caption}
-%% \usepackage{boxhandler}
+\usepackage{boxhandler}
 \usepackage{color}
 
 \definecolor{mygreen}{rgb}{0,0.6,0}
@@ -57,20 +49,20 @@
 
 \lstset{ %
   backgroundcolor=\color{white},   % choose the background color; you must add \usepackage{color} or \usepackage{xcolor}; should come as last argument
-  basicstyle=\footnotesize,        % the size of the fonts that are used for the code
+  basicstyle=\footnotesize\ttfamily,        % the size of the fonts that are used for the code
   breakatwhitespace=false,         % sets if automatic breaks should only happen at whitespace
   breaklines=true,                 % sets automatic line breaking
   captionpos=b,                    % sets the caption-position to bottom
   commentstyle=\color{mygreen},    % comment style
-  deletekeywords={...},            % if you want to delete keywords from the given language
+  %deletekeywords={...},            % if you want to delete keywords from the given language
   escapeinside={\%*}{*)},          % if you want to add LaTeX within your code
   extendedchars=true,              % lets you use non-ASCII characters; for 8-bits encodings only, does not work with UTF-8
   frame=single,	                   % adds a frame around the code
   keepspaces=true,                 % keeps spaces in text, useful for keeping indentation of code (possibly needs columns=flexible)
   keywordstyle=\color{blue},       % keyword style
-  language=XML,                 % the language of the code
-  morekeywords={*,...},           % if you want to add more keywords to the set
-  numbers=left,                    % where to put the line-numbers; possible values are (none, left, right)
+  language=bash,                 % the language of the code
+  % morekeywords={*,...},           % if you want to add more keywords to the set
+  numbers=none,                    % where to put the line-numbers; possible values are (none, left, right)
   numbersep=5pt,                   % how far the line-numbers are from the code
   numberstyle=\tiny\color{mygray}, % the style that is used for the line-numbers
   rulecolor=\color{black},         % if not set, the frame-color may be changed on line-breaks within not-black text (e.g. comments (green here))
@@ -87,14 +79,12 @@
 \DeclareCaptionFont{white}{ \color{white} }
 \DeclareCaptionFormat{listing}{
   \colorbox[cmyk]{0.43, 0.35, 0.35,0.01 }{
-    \parbox{0.4\textwidth}{\hspace{15pt}#1#2#3}
+    \parbox{0.8\textwidth}{\hspace{15pt}#1#2#3}
   }
 }
-\captionsetup[lstlisting]{ format=listing, labelfont=white, textfont=white, singlelinecheck=false, margin=2em, font={bf,footnotesize}}
+\captionsetup[lstlisting]{ format=listing, labelfont=white, textfont=white, singlelinecheck=false, margin=2em, font={footnotesize}}
 
 %% Macros
-\newcommand{\logo}[1] {\textsf{\textit{\textbf{#1}}}\index{#1}}
-\newcommand{\SECTLOGO}[1] {\textsf{\textsc{\textbf{#1}}\index{#1}}}
-\newcommand{\LOGO}[1] {\small\textsf{\textsc{\textbf{#1}}\index{#1}}\normalsize}
+\newcommand{\inmargin}[1]{\marginnote{\scriptsize\textit{#1}\normalsize}}
 \newcommand{\commande}[1] {\texttt{\textit{#1}}\index{#1}}
-\newcommand{\code}[1] {\texttt{\textbf{\emph{#1}}}\index{#1}}
+\newcommand{\code}[1] {\footnotesize\texttt{\emph{#1}}\index{#1}\normalsize}
