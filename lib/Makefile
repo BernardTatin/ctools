@@ -4,18 +4,15 @@
 ## Time: 25 avr. 2016 11:41:31
 ## Makefile created by Oracle Solaris Studio.
 ##
-## This file is generated automatically.
-##
 
 
-#### Compiler and tool definitions shared by all build targets #####
-CC = cc
-BASICOPTS = -xO3 -xarch=generic64 -erroff=%none
-CFLAGS = $(BASICOPTS) -xCC -Xc -Iinclude
+compiler ?= suncc
+ipath += -Iinclude
 
+include ../mk/$(compiler).mk
 
 # Define the target directories.
-TARGETDIR_libctools=lib64
+TARGETDIR_libctools=$(compiler)-lib$(arch)
 
 
 all: $(TARGETDIR_libctools) $(TARGETDIR_libctools)/libctools.a
@@ -33,7 +30,7 @@ $(TARGETDIR_libctools)/libctools.a: $(TARGETDIR_libctools) $(OBJS_libctools)
 
 # Compile source files into .o files
 $(TARGETDIR_libctools)/%.o: src/%.c
-	$(COMPILE.c) $(CFLAGS_libctools) $(CPPFLAGS_libctools) -o $@ $<
+	$(CC) -c $< -o $@ $(CFLAGS)
 
 
 #### Clean target deletes all generated files ####

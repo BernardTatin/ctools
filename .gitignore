@@ -59,3 +59,39 @@ x-top/src/solar-stuff
 # builds
 build/
 dist/
+
+# Latex
+
+*.aux
+*.log
+*.out
+*.toc
+*-converted-to.pdf
+*.bbl
+*.blg
+*.bcf
+*.idx
+*.ilg
+*.ind
+*.lof
+*.lol
+diamondrule.pdf
+main.pdf
+
+tags
+build/
+
+# backup files
+*~
+.*.swp
+
+# archives
+*.gz
+*.tgz
+*.tar.*
+*.zip
+
+# IDEs
+*.fls
+*.*_latexmk
+*.run.xml

@@ -28,21 +28,21 @@
 ##    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 ##    SOFTWARE.
 
-targets = hexdump x-top
+compiler ?= suncc
+
+targets = lib hexdump x-top openindiana
 
 all:
-	cd lib && $(MAKE) all && cd ..
 	for t in $(targets) ; \
          do cd $$t; \
-         $(MAKE) all; \
+         $(MAKE) compiler=$(compiler) all; \
 		 cd ..; \
 	done
 
 clean:
-	cd lib && $(MAKE) clean && cd ..
 	for t in $(targets) ; \
          do cd $$t; \
-         $(MAKE) clean; \
+         $(MAKE) compiler=$(compiler) clean; \
 		 cd ..; \
 	done
 

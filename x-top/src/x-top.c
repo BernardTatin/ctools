@@ -76,7 +76,7 @@ static void onExposeChild(void) {
     TSsysconf *sysconf = soli_sysconf();
     
     XhDrawString(xconf_main.childStatus, 10, 12, "%02d:%02d:%02d", sysconf->tm->tm_hour, sysconf->tm->tm_min, sysconf->tm->tm_sec);
-    fprintf(stdout, "onExposeChild\n");
+    //fprintf(stdout, "onExposeChild\n");
 }
 
 static void onExposeMainWindow(Display *display, const int screen, const Window win) {

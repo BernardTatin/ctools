@@ -29,20 +29,14 @@
 ##    SOFTWARE.
 
 
-CC = cc
-LD = $(CC)
 RM = rm -f
-
-arch = -m64
-fullarch = -xtarget=generic -xarch=sse2 $(arch) -xvector=simd -erroff=%none
-optim = -xO3 
-
-odir = objs$(arch)
 
 ipath += include
 
-CFLAGS = -std=c11 $(arch) $(optim) $(ipath) -errtags=yes -D_REENTRANT
-LDFLAGS = $(arch) -L../lib/lib64 -lctools
+include ../mk/$(compiler).mk
+
+odir = $(compiler)-$(arch)
+
 
 EXE = $(MAIN)$(arch)
 OBJS=$(SRC:$(src)/%.c=$(odir)/%.o)

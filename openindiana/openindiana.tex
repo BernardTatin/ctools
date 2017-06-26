@@ -1,0 +1,37 @@
+\documentclass[book]{bt}
+
+\input "presentation.tex"
+\input "logos.tex"
+
+\author{Bernard Tatin}
+\authorfooter{
+% % %% insert punctuation at end of each item
+  \item Bernard TATIN,  bernard.tatin@outlook.fr.
+  \item Franck Zappa pour l'ambiance musicale.
+}
+% %% Keywords that describe your work. Will show as 'Index Terms' in journal
+% %% please capitalize first letter and insert punctuation after last keyword
+% \keywords{Git.}
+\title{OpenIndiana Journal}
+\abstract{
+	OpenIndiana, un Solaris open source avec \emph{ZFS} et les \emph{zones}. De quoi passer du temps !
+}
+
+\makeindex
+
+
+\begin{document}
+\maketitle
+
+\clearpage
+\part{démarrer}
+\input{basic}
+\input{latex}
+%% \clearpage
+%% \addcontentsline{toc}{section}{Bibliographie}
+%% \printbibliography
+
+\addcontentsline{toc}{section}{Index}
+\printindex
+
+\end{document}
