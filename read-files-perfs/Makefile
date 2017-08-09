@@ -11,7 +11,8 @@ now = $(shell date "+%y%m%d-%H%M%S")
 perfs_file = $(os)-perfs/$(now).perfs
 
 ifeq ($(os),Linux)
-all_compilers="gcc icc sun"
+#all_compilers="gcc icc sun"
+all_compilers="gcc"
 endif
 
 ifeq ($(os),FreeBSD)
