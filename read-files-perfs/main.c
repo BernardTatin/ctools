@@ -64,7 +64,7 @@
 #if defined(__SUNPRO_C)
 #pragma align 8 (buffer)
 #endif
-static unsigned char buffer[BUFFER_SIZE] ALIGNED(4096); // 1 MiB buffer
+static unsigned char buffer[BUFFER_SIZE] ALIGNED(8); // 1 MiB buffer
 
 static const char *output_file = "/dev/null";
 
@@ -117,8 +117,6 @@ static int test_mmap(const char *fileName) {
 
   for (int i = 0; i < ITERATIONS; ++i) {
     mmdata = mmap(NULL, BUFFER_SIZE, PROT_READ, MAP_PRIVATE, fd, i * BUFFER_SIZE);
-    // But if we don't touch it, it won't be read...
-    // I happen to know I have 4 KiB pages, YMMV
     value += compute_data(buffer);
     munmap(mmdata, BUFFER_SIZE);
   }
@@ -127,14 +125,11 @@ static int test_mmap(const char *fileName) {
 }
 
 static void do_test(int (*fun)(const char *fileName), const char *fileName, const char *testName) {
-  double end_time;
   double total_time;
   double start_time = now();
-
   int value = fun(fileName);
 
-  end_time = now();
-  total_time = end_time - start_time;
+  total_time = now() - start_time;
 
   printf("-- %-3s %-5s -- ", COMPILER, testName, value);
   printf("It took %7.6f seconds to read %d GiB. That's %10.2f MiB/s.\n", total_time, LOOPS, ITERATIONS / total_time);
@@ -146,6 +141,7 @@ int main(int argn, char *argv[]) {
   if (argn > 1) {
     input_file = argv[1];
   }
+  printf("Testing by reading %s\n", input_file);
   for (int i = 0; i < 10; i++) {
     do_test(test_fread, input_file, "fread");
     do_test(test_read, input_file, "read");

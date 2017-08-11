@@ -25,7 +25,9 @@ RM = rm -f
 ifeq ($(compiler),gcc)
 CC = gcc
 LD = gcc
-CFLAGS = -O2 -Wall -m64 -std=c11 -MMD -MP
+optimize = -fmodulo-sched -fmodulo-sched-allow-regmoves  \
+	-fno-keep-static-consts -fvariable-expansion-in-unroller
+CFLAGS = -O2 -Wall -m64 -std=c11 -MMD -MP $(optimize)
 LDFLAGS = -m64
 else ifeq ($(compiler),icc)
 CC = icc
@@ -69,6 +71,7 @@ test: test-dir
 		./read-files-perfs-$${compiler}.exe >> log; \
 	done; \
 	echo "$(osfull)" > $(perfs_file); \
-	sort -k 7 log >> $(perfs_file);
+	sort -k 7 log >> $(perfs_file); \
+	cat $(perfs_file);
 
 .PHONY: all clean test test-dir
