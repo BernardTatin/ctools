@@ -3,7 +3,9 @@
 # ========================================================================
 
 CC = gcc
-CFLAGS = -Wall -pedantic
+CDEFINES = -DCACHE_HIT_THRESHOLD=80
+CFLAGS = -Wall -pedantic $(CDEFINES)
+
 LD = gcc
 LDFLAGS =
 
@@ -16,12 +18,12 @@ OBJECTS = $(subst .c,.o,$(SOURCES))
 all: $(EXE)
 
 $(EXE): $(OBJECTS)
-	$(LD) -o $(EXE) $(OBJECTS)
+	$(LD) $(LDFLAGS) -o $(EXE) $(OBJECTS)
 
 %.o: %.c
 	@echo "SOURCES : $(SOURCES)"
 	@echo "OBJECTS : $(OBJECTS)"
-	$(CC) -c $< -o $@
+	$(CC) $(CFLAGS) -c $< -o $@
 
 clean:
 	rm -Rfv $(EXE) $(OBJECTS)
