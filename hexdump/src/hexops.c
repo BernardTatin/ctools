@@ -1,4 +1,4 @@
-/* 
+/*
  * File:   hexops.c
  * Author: bernard
  *
@@ -30,6 +30,6 @@
  */
 
 
-#include <stdint.h>
+#include "compat.h"
 
 char *hex_chars = "0123456789abcdef";

@@ -45,6 +45,11 @@ nbproject/
 .*.swp
 *~
 
+# watcom
+*.err
+*.mk1
+*.tgt
+
 # trash
 log
 *.log

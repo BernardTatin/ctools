@@ -30,10 +30,9 @@
 
  */
 
+#include "compat.h"
 #include <stdio.h>
 #include <stdlib.h>
-#include <string.h>
-#include <stdint.h>
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <fcntl.h>
@@ -43,8 +42,8 @@
 #include "file-reader.h"
 #include "hexops.h"
 
-#define HLEN	16
-#define LLEN	256
+#define HLEN    16
+#define LLEN    256
 
 
 static uint8_t buffer[HLEN];
@@ -71,28 +70,28 @@ static int hexdump(const char* fileName) {
 
             dst += sprintf(dst, "%08lx  ", fr_before_position(fd));
             for (int i = 0; i < imax; i++) {
-				dst = put_hex_byte(dst, *(src++));
-				if (i == 7) {
-					*(dst++) = ' ';
-				}
+                dst = put_hex_byte(dst, *(src++));
+                if (i == 7) {
+                    *(dst++) = ' ';
+                }
             }
             if (imax < HLEN) {
                 for (int i = imax; i < HLEN; i++) {
-					dst = put3spaces(dst);
+                    dst = put3spaces(dst);
                 }
             }
             src = old_src;
             *(dst++) = ' ';
             *(dst++) = '|';
             for (int i = 0; i < imax; i++) {
-				*(dst++) = normalize_byte(*(src++));
+                *(dst++) = normalize_byte(*(src++));
             }
             *(dst++) = '|';
             *dst = 0;
             fprintf(stdout, "%s\n", line);
         }
         fr_close(fd);
-		fprintf(stdout, "%08lx\n", fr_before_position(fd));
+        fprintf(stdout, "%08lx\n", fr_before_position(fd));
     } else {
         fprintf(stderr, "Cannot open file %s\n", fileName);
     }

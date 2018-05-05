@@ -51,15 +51,15 @@ typedef struct _FileReader {
 	TSRBuffer *rbuffer;
 } TSFileReader;
 
-static inline bool fr_isopen(TSFileReader *fr) {
+static INLINE bool fr_isopen(TSFileReader *fr) {
 	return (fr != NULL) && (fr->file_handle != FHNotOpen);
 }
 
-static inline bool fr_iseof(TSFileReader *fr) {
+static INLINE bool fr_iseof(TSFileReader *fr) {
 	return fr->eof;
 }
 
-static inline bool fr_isempty(TSFileReader *fr) {
+static INLINE bool fr_isempty(TSFileReader *fr) {
 	return rb_isempty(fr->rbuffer);
 }
 #endif /* PRIVATE_FILE_HEADER_H_ */

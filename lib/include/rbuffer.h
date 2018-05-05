@@ -42,18 +42,18 @@ typedef struct _RBuffer {
 void *rb_allocate(const int buffer_size);
 void rb_free(void *rb);
 
-static inline void *rb_get_buffer(void *vrb) {
+static INLINE void *rb_get_buffer(void *vrb) {
 	return ((TSRBuffer *)vrb)->buffer;
 }
 
-static inline void rb_reset(void *vrb, const int count) {
+static INLINE void rb_reset(void *vrb, const int count) {
 	TSRBuffer *rb = (TSRBuffer *)vrb;
 
 	rb->ptr_out = 0;
 	rb->count = count;
 }
 
-static inline bool rb_isempty(TSRBuffer *rbuffer) {
+static INLINE bool rb_isempty(TSRBuffer *rbuffer) {
 	int count = rbuffer->count;
 	return (count == 0) || (rbuffer->ptr_out+1 >= count);
 }

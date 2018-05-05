@@ -35,7 +35,7 @@
 
 extern char *hex_chars;
 
-static inline char normalize_byte(uint8_t c) {
+static INLINE char normalize_byte(uint8_t c) {
 	if (c < 32 || c > 126) {
 		return '.';
 	} else {
@@ -44,7 +44,7 @@ static inline char normalize_byte(uint8_t c) {
 }
 
 
-static inline char *put_hex_byte(char *dst, uint8_t b) {
+static INLINE char *put_hex_byte(char *dst, uint8_t b) {
 	uint8_t hbyte = (b >> 4) & 0x0f;
 	uint8_t lbyte = b & 0x0f;
 	*(dst++) = *(hex_chars + hbyte);
@@ -53,7 +53,7 @@ static inline char *put_hex_byte(char *dst, uint8_t b) {
 	return dst;
 }
 
-static inline char *put3spaces(char *dst) {
+static INLINE char *put3spaces(char *dst) {
 	*(dst++) = ' ';
 	*(dst++) = ' ';
 	*(dst++) = ' ';

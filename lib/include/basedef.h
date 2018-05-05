@@ -1,4 +1,4 @@
-/* 
+/*
  * File:   basedef.h
  * Author: Bernard TATIN <bernard dot tatin at outlook dot org>
  *
@@ -31,7 +31,7 @@
 
 
 #ifndef BASEDEF_H
-#define	BASEDEF_H
+#define BASEDEF_H
 
 
 #if !defined(SUCCESS)
@@ -42,14 +42,17 @@
 #define FAILURE 1
 #endif
 
-static inline int min(int a, int b) {
-	if (a < b) {
-		return a;
-	} else {
-		return b;
-	}
+
+#if !defined(__WATCOMC__)
+static INLINE int min(int a, int b) {
+    if (a < b) {
+        return a;
+    } else {
+        return b;
+    }
 }
+#endif
 
 
-#endif	/* BASEDEF_H */
+#endif  /* BASEDEF_H */
 
