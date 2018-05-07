@@ -42,9 +42,10 @@
 #define FAILURE 1
 #endif
 
+#include "compat.h"
 
 #if !defined(__WATCOMC__)
-static INLINE int min(int a, int b) {
+static int min(int a, int b) {
     if (a < b) {
         return a;
     } else {
@@ -55,4 +56,3 @@ static INLINE int min(int a, int b) {
 
 
 #endif  /* BASEDEF_H */
-

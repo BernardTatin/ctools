@@ -48,6 +48,9 @@ nbproject/
 # watcom
 *.err
 *.mk1
+*.lk1
+*.map
+*.sym
 *.tgt
 
 # trash

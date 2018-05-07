@@ -57,7 +57,8 @@ static _Noreturn void dohelp(const int exitCode) {
 
 static int hexdump(const char* fileName) {
     void *fd = fr_open(fileName, NULL);
-    //fprintf(stdout, "File : %s\n", fileName);
+    int i;
+
     if (fd != NULL) {
         ssize_t read_len;
 
@@ -69,21 +70,21 @@ static int hexdump(const char* fileName) {
             int imax = min(HLEN, rest);
 
             dst += sprintf(dst, "%08lx  ", fr_before_position(fd));
-            for (int i = 0; i < imax; i++) {
+            for (i = 0; i < imax; i++) {
                 dst = put_hex_byte(dst, *(src++));
                 if (i == 7) {
                     *(dst++) = ' ';
                 }
             }
             if (imax < HLEN) {
-                for (int i = imax; i < HLEN; i++) {
+                for (i = imax; i < HLEN; i++) {
                     dst = put3spaces(dst);
                 }
             }
             src = old_src;
             *(dst++) = ' ';
             *(dst++) = '|';
-            for (int i = 0; i < imax; i++) {
+            for (i = 0; i < imax; i++) {
                 *(dst++) = normalize_byte(*(src++));
             }
             *(dst++) = '|';
@@ -101,8 +102,9 @@ static int hexdump(const char* fileName) {
 
 int main(int argn, char *argv[]) {
     int retCode = SUCCESS;
+    int i;
 
-    for (int i = 1; i < argn; i++) {
+    for (i = 1; i < argn; i++) {
         char *arg = argv[i];
 
         if (strcmp(arg, "--help") == 0) {

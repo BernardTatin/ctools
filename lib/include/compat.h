@@ -10,15 +10,19 @@
 #include <string.h>
 
 #if defined(__WATCOMC__)
+  #define INLINE __inline
+  #define _Noreturn
   #include <stdbool.h>
-  #include "_compat/_stdint.h"
-  #define INLINE 
-  // __inline
+  #include <sys/types.h>
+  // #include "_compat/_stdint.h"
+  /* __inline */
 #elif defined(_MSC_VER)
+  #define _Noreturn
   #include "_compat/_stdbool.h"
   #include "_compat/_stdint.h"
-  #define INLINE 
+  #define INLINE
 #elif defined(__TURBOC__)
+  #define _Noreturn
   #include "_compat/_stdbool.h"
   #include "_compat/_stdint.h"
   #define INLINE

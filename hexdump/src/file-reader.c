@@ -64,7 +64,7 @@ static void fr_free(void *vfr) {
 /**
  * memory allocation for a file-reader structure
  */
-static void *fr_alloc(void) {
+void *fr_alloc(void) {
     TSFileReader *fr =  (TSFileReader *)calloc(1, sizeof(TSFileReader));
     if (fr == NULL) {
         fprintf(stderr, "Cannot allocate memory!!!\n");
@@ -110,11 +110,12 @@ void *fr_open(const char *file_name, void *fr_block) {
  */
 int fr_read(void *fr_block, uint8_t *buffer, const int len) {
     TSFileReader *fr = (TSFileReader *)fr_block;
+		int real_len;
     if (fr_isempty(fr)) {
         fr_fill_buffer(fr);
     }
 
-    int real_len = rb_read(fr->rbuffer, buffer, len);
+    real_len = rb_read(fr->rbuffer, buffer, len);
     fr->before_position = fr->position;
     fr->position += (int64_t)real_len;
     return real_len;
