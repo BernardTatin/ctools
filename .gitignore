@@ -60,6 +60,7 @@ log
 
 # compilation product
 x-top/src/solar-stuff
+hexdump.mk
 
 # make
 .make.state.*
