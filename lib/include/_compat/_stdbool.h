@@ -8,12 +8,8 @@
 #ifndef INCLUDE__COMPAT__STDBOOL_H_
 #define INCLUDE__COMPAT__STDBOOL_H_
 
-#if defined(__WATCOMC__)
-#include <stdbool.h>
-#else
 #if defined(true)
 #undef true
-#endif
 
 #if defined(false)
 #undef false

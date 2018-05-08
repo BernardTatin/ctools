@@ -42,8 +42,6 @@
 #define FAILURE 1
 #endif
 
-#include "compat.h"
-
 #if !defined(__WATCOMC__)
 static int min(int a, int b) {
     if (a < b) {
