@@ -94,11 +94,15 @@ int64_t fr_position(void *fr_block) {
  */
 void *fr_open(const char *file_name, void *fr_block) {
     TSFileReader *fr = (TSFileReader *)fr_block;
+		int file_flags = O_RDONLY;
+#if defined(__WATCOMC__)
+		file_flags |= O_BINARY;
+#endif
     if (fr == NULL) {
         fr = fr_alloc();
     }
     fr->filename = (char *)file_name;
-    fr->file_handle = open(fr->filename, O_RDONLY | O_BINARY);
+    fr->file_handle = open(fr->filename, file_flags);
     if (fr->file_handle == FHNotOpen) {
         fr_free (fr);
         return NULL;
