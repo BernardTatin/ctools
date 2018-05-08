@@ -98,7 +98,7 @@ void *fr_open(const char *file_name, void *fr_block) {
         fr = fr_alloc();
     }
     fr->filename = (char *)file_name;
-    fr->file_handle = open(fr->filename, O_RDONLY);
+    fr->file_handle = open(fr->filename, O_RDONLY | O_BINARY);
     if (fr->file_handle == FHNotOpen) {
         fr_free (fr);
         return NULL;
