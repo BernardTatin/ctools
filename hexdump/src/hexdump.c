@@ -79,6 +79,9 @@ static int hexdump(const char* fileName) {
             if (imax < HLEN) {
                 for (i = imax; i < HLEN; i++) {
                     dst = put3spaces(dst);
+                    if (i == 7) {
+                        *(dst++) = ' ';
+                    }
                 }
             }
             src = old_src;
