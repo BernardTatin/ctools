@@ -52,6 +52,9 @@ nbproject/
 *.map
 *.sym
 *.tgt
+*.?br
+*.lst
+
 
 # trash
 log
@@ -60,7 +63,7 @@ log
 
 # compilation product
 x-top/src/solar-stuff
-hexdump.mk
+hexdump*.mk
 
 # make
 .make.state.*
