@@ -34,14 +34,15 @@ RM = rm -f
 libsrc=../lib/src
 ipath += -Iinclude
 
+
 include ../mk/$(compiler).mk
 
 odir = $(compiler)-$(arch)
 
 
 EXE = $(MAIN)$(arch)
-#OBJS=$(SRC:$(src)/%.c=$(odir)/%.o) $(SRC:$(libsrc)/%.c=$(odir)/%.o)
 OBJS = $(addprefix $(odir)/, $(patsubst %.c,%.o,$(notdir $(SRC))))
+
 all: $(odir) $(EXE)
 
 $(odir):

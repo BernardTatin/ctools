@@ -1,4 +1,4 @@
-## -*- sunc.mk -*-
+## -*- gcc.mk -*-
 ##
 ## User: bernard
 ## Time: 04 jun. 2016 16:18:31
