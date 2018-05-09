@@ -41,7 +41,7 @@ odir = $(compiler)-$(arch)
 
 EXE = $(MAIN)$(arch)
 #OBJS=$(SRC:$(src)/%.c=$(odir)/%.o) $(SRC:$(libsrc)/%.c=$(odir)/%.o)
-OBJS = $(patsubst %.c,%.o,$(SRC))
+OBJS = $(addprefix $(odir)/, $(patsubst %.c,%.o,$(notdir $(SRC))))
 all: $(odir) $(EXE)
 
 $(odir):
@@ -57,5 +57,7 @@ $(odir)/%.o: $(libsrc)/%.c
 	$(CC) -c $< $(CFLAGS) -o $@
 
 clean:
+	@echo "SRC : $(SRC)"
+	@echo "OBJS: $(OBJS)"
 	$(RM) $(EXE) $(OBJS)
 	$(RM) a.out core
