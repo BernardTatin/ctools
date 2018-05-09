@@ -31,6 +31,7 @@
 
 RM = rm -f
 
+libsrc=../lib/src
 ipath += -Iinclude
 
 include ../mk/$(compiler).mk
@@ -39,8 +40,8 @@ odir = $(compiler)-$(arch)
 
 
 EXE = $(MAIN)$(arch)
-OBJS=$(SRC:$(src)/%.c=$(odir)/%.o)
-
+#OBJS=$(SRC:$(src)/%.c=$(odir)/%.o) $(SRC:$(libsrc)/%.c=$(odir)/%.o)
+OBJS = $(patsubst %.c,%.o,$(SRC))
 all: $(odir) $(EXE)
 
 $(odir):
@@ -50,6 +51,9 @@ $(EXE): $(OBJS)
 	$(LD) -o $(EXE) $(OBJS) $(LDFLAGS) $(LIBS)
 
 $(odir)/%.o: $(src)/%.c
+	$(CC) -c $< $(CFLAGS) -o $@
+
+$(odir)/%.o: $(libsrc)/%.c
 	$(CC) -c $< $(CFLAGS) -o $@
 
 clean:

@@ -13,5 +13,5 @@ fullarch = -Wall -pedantic
 optim = -O2
 
 CFLAGS = -std=c11 $(arch) $(optim) $(ipath) -errtags=yes -D_REENTRANT
-LDFLAGS = $(arch) -L../lib/$(compiler)-lib$(arch) -lctools
+LDFLAGS = $(arch)
 
