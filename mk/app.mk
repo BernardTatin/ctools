@@ -31,7 +31,7 @@
 
 RM = rm -f
 
-ipath += include
+ipath += -Iinclude
 
 include ../mk/$(compiler).mk
 
@@ -50,7 +50,7 @@ $(EXE): $(OBJS)
 	$(LD) -o $(EXE) $(OBJS) $(LDFLAGS) $(LIBS)
 
 $(odir)/%.o: $(src)/%.c
-	$(CC) -c $< -o $@ $(CFLAGS)
+	$(CC) -c $< $(CFLAGS) -o $@
 
 clean:
 	$(RM) $(EXE) $(OBJS)

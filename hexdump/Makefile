@@ -32,10 +32,17 @@
 compiler ?= suncc
 src = src
 
-ipath = -Iinclude -I../lib/include
+lib=../lib
+
+ipath = -I$(lib)/include
+
 
 MAIN = hexdump
-SRC = $(src)/$(MAIN).c $(src)/file-reader.c $(src)/hexops.c
+SRC = $(src)/$(MAIN).c \
+	$(src)/file-reader.c \
+	$(src)/hexops.c \
+	$(lib)/src/clist.c \
+	$(lib)/src/rbuffer.c
 
 include ../mk/app.mk
 
