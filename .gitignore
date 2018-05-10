@@ -54,7 +54,7 @@ nbproject/
 *.tgt
 *.?br
 *.lst
-
+*.def
 
 # trash
 log

@@ -8,11 +8,10 @@
 CC = owcc
 LD = $(CC)
 
-arch =
-warnings = -w=4
-optim = -6s -d0
+arch = i386
+march = -march=$(arch) -mtune=i686
+warnings = -Wall -Wextra
+optim = -g0 -O2
 
-CFLAGS = -std=c11 $(arch) $(warnings) $(optim) $(patsubst -I, i=, $(ipath))
+CFLAGS = $(march) $(warnings) $(optim) $(patsubst -I, -I , $(ipath)) -fwrite-def
 LDFLAGS =
-
-

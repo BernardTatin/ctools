@@ -37,6 +37,7 @@ ipath += -Iinclude
 
 include ../mk/$(compiler).mk
 
+OFLAG ?= -o $@
 odir = $(compiler)-$(arch)
 
 
@@ -49,13 +50,13 @@ $(odir):
 	mkdir -p $@
 
 $(EXE): $(OBJS)
-	$(LD) -o $(EXE) $(OBJS) $(LDFLAGS) $(LIBS)
+	$(LD) $(OFLAG) $(LDFLAGS) $(LIBS) $(OBJS)
 
 $(odir)/%.o: $(src)/%.c
-	$(CC) -c $< $(CFLAGS) -o $@
+	$(CC) -c $(CFLAGS) $(OFLAG) $<
 
 $(odir)/%.o: $(libsrc)/%.c
-	$(CC) -c $< $(CFLAGS) -o $@
+	$(CC) -c $(CFLAGS) $(OFLAG) $<
 
 clean:
 	@echo "SRC : $(SRC)"
