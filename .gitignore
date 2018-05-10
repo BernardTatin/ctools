@@ -44,6 +44,8 @@ nbproject/
 .cproject
 .*.swp
 *~
+.frama-c/
+*.frama
 
 # watcom
 *.err

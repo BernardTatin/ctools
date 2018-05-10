@@ -46,7 +46,7 @@
 static uint8_t buffer[HLEN];
 static char line[LLEN];
 
-static _Noreturn void dohelp(const int exitCode) {
+static void dohelp(const int exitCode) {
     fprintf(stdout, "dohelp\n");
     exit(exitCode);
 }
