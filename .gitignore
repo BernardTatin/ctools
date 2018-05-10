@@ -60,6 +60,8 @@ nbproject/
 log
 *.log
 *.tmp
+tmp/
+log/
 
 # compilation product
 x-top/src/solar-stuff

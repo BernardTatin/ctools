@@ -41,7 +41,7 @@ OFLAG ?= -o $@
 odir = $(compiler)-$(arch)
 
 
-EXE = $(MAIN)$(arch)
+EXE = $(MAIN)$(arch).exe
 OBJS = $(addprefix $(odir)/, $(patsubst %.c,%.o,$(notdir $(SRC))))
 
 all: $(odir) $(EXE)
