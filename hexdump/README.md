@@ -5,7 +5,7 @@ Doing this during a lazy afternoon, full of pancakes and honey is not really eff
 
 ## BSD
 
-Avec _FreeBSD trueos_, on compile avec _gmake_ pour le compilateur _llc_ et ç passe du premier coup.
+With _FreeBSD trueos_, compile with `gmake compiler=llc all`, it works!
 
 ## Solaris studio, first impression
 It's a Netbeans 8 with a good configuration for using Oracle and GNU compilers or C and Fortran.
