@@ -46,6 +46,8 @@ nbproject/
 *~
 .frama-c/
 *.frama
+.idea/
+*.komodoproject
 
 # watcom
 *.err
