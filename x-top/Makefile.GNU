@@ -39,11 +39,11 @@ ifeq ($(os), SunOS)
 	CFLAGS += -errtags=yes -std=c11
 	ipath = -I./solaris
 else ifeq ($(os), FreeBSD)
-	CC ?= gcc
+	CC ?= gcc6
 	LIBS = -L/usr/local/lib
-	arch ?= -m32
+	arch ?= -m64
 	optim ?= -O3
-	CFLAGS += -Wall -pedantic -std=c99
+	CFLAGS += -Wall -pedantic -std=c11
 	ipath = -I/usr/local/include -I./freebsd
 endif
 
@@ -71,16 +71,19 @@ $(odir):
 	mkdir -p $@
 
 $(EXE): $(OBJS)
-		$(LD) -o $(EXE) $(OBJS) $(LDFLAGS) $(LIBS)
+	$(LD) -o $(EXE) $(OBJS) $(LDFLAGS) $(LIBS)
 
 $(odir)/%.o: $(src)/%.c
-		$(CC) -c $< -o $@ $(CFLAGS)
+	$(CC) -c $< -o $@ $(CFLAGS)
 
 test: $(EXE)
-		./$(EXE)
+	./$(EXE)
 
 clean:
-		$(RM) $(EXE) $(OBJS)
-		$(RM) a.out core
+	echo "objs: $(objs)"
+	echo "OBJS: $(OBJS)"
+	$(RM) $(EXE) $(OBJS)
+	$(RM) a.out core
 
 .PHONY: all test clean
+

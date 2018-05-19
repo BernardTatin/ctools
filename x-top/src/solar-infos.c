@@ -32,12 +32,13 @@
 
 #include <stdio.h>
 #include <stdbool.h>
+#include <stdint.h>
 #include <string.h>
 #include <unistd.h>
 #include <pthread.h>
 #include <sys/utsname.h>
 
-#include "compat.h"
+#include "freebsd/compat.h"
 
 
 #include "solar-infos.h"

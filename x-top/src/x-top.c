@@ -50,7 +50,7 @@
 
 #include <sys/utsname.h>
 
-#include "compat.h"
+#include "freebsd/compat.h"
 
 #include "Xconf.h"
 #include "Xhelper.h"
@@ -74,7 +74,7 @@ static bool onKeyPress(XEvent *e) {
 
 static void onExposeChild(void) {
     TSsysconf *sysconf = soli_sysconf();
-    
+
     XhDrawString(xconf_main.childStatus, 10, 12, "%02d:%02d:%02d", sysconf->tm->tm_hour, sysconf->tm->tm_min, sysconf->tm->tm_sec);
     //fprintf(stdout, "onExposeChild\n");
 }
@@ -138,7 +138,7 @@ static void send_ExposeEvent(void) {
     ee.width = 660;
     ee.height = 220;
     XSendEvent(xconf_main.display, xconf_main.win, True, ExposureMask, (XEvent *) & ee);
-	
+
     memset(&ee, 0, sizeof (XExposeEvent));
     ee.type = Expose;
     ee.display = xconf_main.display;

@@ -1,4 +1,4 @@
-/* 
+/*
  * File:   compat.h
  * Author: Bernard TATIN <bernard dot tatin at outlook dot org>
  *
@@ -16,7 +16,7 @@
 
 #define	LOADAVG_NSTATS	3
 
-#define LONGLONG	long long
+#define LONGLONG	long
 
 #endif	/* COMPAT_H */
 
