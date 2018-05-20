@@ -33,12 +33,12 @@ LIBS = -lX11 -lpthread -lrt
 
 optim = -O3
 
-ici = .
+_here := ${.PARSEDIR}
 libd=../lib
-INCDIR = -I${ici}/include -I${ici} -I${libd}/include
+INCDIR = -I${_here}/include -I${_here} -I${libd}/include
 
 MAIN = solar-infos
-SRCDIR = ${ici}/src
+SRCDIR = ${_here}/src
 LIBDIR = ${libd}/src
 C_SRC = $(SRCDIR)/$(MAIN).c $(SRCDIR)/x-top.c $(SRCDIR)/Xhelper.c $(SRCDIR)/Xconf.c $(LIBDIR)/clist.c
 MAN =

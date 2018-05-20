@@ -32,16 +32,20 @@
 ##    SOFTWARE.
 
 
-COMPILER_TYPE = clang
+CC = clang
+# LD = ${CC}
+COMPILER_TYPE = ${CC}
+
+.OBJDIR: ${MAKEOBJDIR}
 
 INCDIR += -I/usr/local/include
-CFLAGS += -std=c11 $(optim) $(INCDIR) -Wall -pedantic -D_REENTRANT
+CFLAGS = -std=c11 $(optim) $(INCDIR) -Wall -pedantic -D_REENTRANT -march=core
 LDFLAGS += -L/usr/local/lib
 LDADD += $(LIBS)
 
-PROG = $(MAIN).exe
+PROG = $(MAIN).$(CC).exe
 SRCS = $(C_SRC)
 
-MK_PROFILE=no
+MK_OBJDIRS = yes
 
 .include <bsd.prog.mk>

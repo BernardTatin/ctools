@@ -35,13 +35,13 @@ LIBS =
 
 optim = -O3
 
-ici = .
-libd=../lib
-INCDIR = -I${ici}/include -I${ici} -I${libd}/include
+_here := ${.PARSEDIR}
+libd = ${_here}/../lib
+INCDIR = -I${_here}/include -I${_here} -I${libd}/include
 
 
 MAIN = hexdump
-SRCDIR = ${ici}/src
+SRCDIR = ${_here}/src
 LIBDIR = ${libd}/src
 C_SRC = $(SRCDIR)/$(MAIN).c $(SRCDIR)/file-reader.c $(SRCDIR)/hexops.c $(LIBDIR)/clist.c $(LIBDIR)/rbuffer.c
 MAN =
