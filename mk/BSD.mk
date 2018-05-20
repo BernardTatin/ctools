@@ -36,8 +36,6 @@ CC = clang
 # LD = ${CC}
 COMPILER_TYPE = ${CC}
 
-.OBJDIR: ${MAKEOBJDIR}
-
 INCDIR += -I/usr/local/include
 CFLAGS = -std=c11 $(optim) $(INCDIR) -Wall -pedantic -D_REENTRANT -march=core
 LDFLAGS += -L/usr/local/lib
