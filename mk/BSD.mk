@@ -1,10 +1,12 @@
 ## ======================================================================
-## Makefile
-## SolarStuff project
+## BSD.mk
+## Common parts of BSD Makefiles
 ## Author: Bernard TATIN <bernard dot tatin at outlook dot org>
 ##
-## Created on 3 mars 2016, 22:20
+## Created on 20 mai 2018, 07:48
 ##
+## see:
+## https://github.com/freebsd/freebsd/blob/master/share/mk/bsd.README
 ## ======================================================================
 
 ##    The MIT License (MIT)
@@ -30,16 +32,16 @@
 ##    SOFTWARE.
 
 
-LIBS = -L/usr/openwin/lib -lX11 -lpthread -lrt
+COMPILER_TYPE = clang
 
-ipath = -I./include -I./solaris -I../lib/include
+INCDIR += -I/usr/local/include
+CFLAGS += -std=c11 $(optim) $(INCDIR) -Wall -pedantic -D_REENTRANT
+LDFLAGS += -L/usr/local/lib
+LDADD += $(LIBS)
 
-src = src
+PROG = $(MAIN).exe
+SRCS = $(C_SRC)
 
-MAIN = x-top
-SRC = $(src)/$(MAIN).c $(src)/Xhelper.c $(src)/Xconf.c $(src)/solar-infos.c
+MK_PROFILE=no
 
-include ../mk/app.mk
-
-test: $(EXE)
-	./$(EXE)
+.include <bsd.prog.mk>

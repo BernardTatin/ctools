@@ -29,25 +29,19 @@
 ##    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 ##    SOFTWARE.
 
-CC = clang
-LD = $(CC)
 LIBS = -lX11 -lpthread -lrt
-RM = rm -fv
 
 optim = -O3
 
 ici = .
-INCDIR = -I${ici}/include -I${ici} -I/usr/local/include
-CFLAGS += -std=c11 $(optim) $(INCDIR) -Wall -pedantic -D_REENTRANT
-LDFLAGS += -L/usr/local/lib
-LDADD += $(LIBS)
-
+libd=../lib
+INCDIR = -I${ici}/include -I${ici} -I${libd}/include
 
 MAIN = solar-infos
-PROG = $(MAIN)
 SRCDIR = ${ici}/src
-C_SRC = $(SRCDIR)/$(MAIN).c $(SRCDIR)/x-top.c $(SRCDIR)/Xhelper.c $(SRCDIR)/Xconf.c $(SRCDIR)/clist.c
-SRCS = $(C_SRC)
+LIBDIR = ${libd}/src
+C_SRC = $(SRCDIR)/$(MAIN).c $(SRCDIR)/x-top.c $(SRCDIR)/Xhelper.c $(SRCDIR)/Xconf.c $(LIBDIR)/clist.c
 MAN =
 
-.include <bsd.prog.mk>
+.include "../mk/BSD.mk"
+

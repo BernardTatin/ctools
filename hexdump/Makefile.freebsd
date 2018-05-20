@@ -5,6 +5,8 @@
 ##
 ## Created on 20 mai 2018, 07:48
 ##
+## see:
+## https://github.com/freebsd/freebsd/blob/master/share/mk/bsd.README
 ## ======================================================================
 
 ##    The MIT License (MIT)
@@ -29,27 +31,19 @@
 ##    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 ##    SOFTWARE.
 
-CC = clang
-LD = $(CC)
-LIBS = -lX11 -lpthread -lrt
-RM = rm -fv
+LIBS =
 
 optim = -O3
 
 ici = .
 libd=../lib
-INCDIR = -I${ici}/include -I${ici} -I${libd}/include -I/usr/local/include
-CFLAGS += -std=c11 $(optim) $(INCDIR) -Wall -pedantic -D_REENTRANT
-LDFLAGS += -L/usr/local/lib
-LDADD += $(LIBS)
+INCDIR = -I${ici}/include -I${ici} -I${libd}/include
 
 
 MAIN = hexdump
-PROG = $(MAIN).exe
 SRCDIR = ${ici}/src
 LIBDIR = ${libd}/src
 C_SRC = $(SRCDIR)/$(MAIN).c $(SRCDIR)/file-reader.c $(SRCDIR)/hexops.c $(LIBDIR)/clist.c $(LIBDIR)/rbuffer.c
-SRCS = $(C_SRC)
 MAN =
 
-.include <bsd.prog.mk>
+.include "../mk/BSD.mk"
