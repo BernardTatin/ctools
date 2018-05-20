@@ -30,6 +30,8 @@
 *.x86_64
 *.hex
 core
+*.full
+*.debug
 
 *-m32
 *-m64
