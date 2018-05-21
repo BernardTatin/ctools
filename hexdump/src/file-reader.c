@@ -114,14 +114,17 @@ void *fr_open(const char *file_name, void *fr_block) {
  */
 int fr_read(void *fr_block, uint8_t *buffer, const int len) {
     TSFileReader *fr = (TSFileReader *)fr_block;
-		int real_len;
+	int real_len;
+
     if (fr_isempty(fr)) {
         fr_fill_buffer(fr);
     }
 
-    real_len = rb_read(fr->rbuffer, buffer, len);
     fr->before_position = fr->position;
-    fr->position += (int64_t)real_len;
+    real_len = rb_read(fr->rbuffer, buffer, len);
+    if (real_len > 0) {
+		fr->position += (int64_t)real_len;
+	}
     return real_len;
 }
 /**

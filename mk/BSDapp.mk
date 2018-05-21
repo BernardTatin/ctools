@@ -31,10 +31,14 @@
 ##    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 ##    SOFTWARE.
 
+compiler ?= clang
+.if ${compiler} == "gcc"
+LD = ${compiler}
+.endif
+CC = ${compiler}
+COMPILER_TYPE = ${compiler}
 
-CC = clang
-# LD = ${CC}
-COMPILER_TYPE = ${CC}
+
 
 MACHINE_CPUARCH ?= amd64
 CPUTYPE ?= core
@@ -59,3 +63,5 @@ show:
 	@echo "MACHINE_CPU    : ${MACHINE_CPU}"
 	@echo "CFLAGS         : ${CFLAGS}"
 
+dotest: all
+	./${PROG} LICENSE

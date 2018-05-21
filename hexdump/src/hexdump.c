@@ -91,8 +91,8 @@ static int hexdump(const char* fileName) {
             *dst = 0;
             fprintf(stdout, "%s\n", line);
         }
-        fr_close(fd);
         fprintf(stdout, "%08lx\n", fr_before_position(fd));
+        fr_close(fd);
     } else {
         fprintf(stderr, "Cannot open file %s\n", fileName);
     }
