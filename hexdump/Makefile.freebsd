@@ -46,4 +46,4 @@ LIBDIR = ${libd}/src
 C_SRC = $(SRCDIR)/$(MAIN).c $(SRCDIR)/file-reader.c $(SRCDIR)/hexops.c $(LIBDIR)/clist.c $(LIBDIR)/rbuffer.c
 MAN =
 
-.include "../mk/BSD.mk"
+.include "../mk/BSDapp.mk"

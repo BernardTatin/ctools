@@ -36,8 +36,11 @@ CC = clang
 # LD = ${CC}
 COMPILER_TYPE = ${CC}
 
+MACHINE_CPUARCH ?= amd64
+CPUTYPE ?= core
+
 INCDIR += -I/usr/local/include
-CFLAGS = -std=c11 $(optim) $(INCDIR) -Wall -pedantic -D_REENTRANT -march=core
+CFLAGS = -std=c11 $(optim) $(INCDIR) -Wall -pedantic -D_REENTRANT
 LDFLAGS += -L/usr/local/lib
 LDADD += $(LIBS)
 
@@ -46,4 +49,13 @@ SRCS = $(C_SRC)
 
 MK_OBJDIRS = yes
 
+.include <bsd.cpu.mk>
+
 .include <bsd.prog.mk>
+
+show:
+	@echo "CPUTYPE        : ${CPUTYPE}"
+	@echo "MACHINE_CPUARCH: ${MACHINE_CPUARCH}"
+	@echo "MACHINE_CPU    : ${MACHINE_CPU}"
+	@echo "CFLAGS         : ${CFLAGS}"
+
