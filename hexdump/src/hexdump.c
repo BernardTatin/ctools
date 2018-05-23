@@ -54,7 +54,7 @@ static void dohelp(const int exitCode) {
 
 static int hexdump(const char* fileName) {
     void *fd = fr_open(fileName, NULL);
-    int i;
+    int i;		// BOF: see how to work with stdc11 with Open Watcom
 
     if (fd != NULL) {
         ssize_t read_len;
@@ -91,6 +91,7 @@ static int hexdump(const char* fileName) {
             *dst = 0;
             fprintf(stdout, "%s\n", line);
         }
+        // BOF : do fprintf BEFORE fr_close, if not, BUG !
         fprintf(stdout, "%08lx\n", fr_before_position(fd));
         fr_close(fd);
     } else {

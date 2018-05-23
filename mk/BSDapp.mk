@@ -40,11 +40,14 @@ COMPILER_TYPE = ${compiler}
 
 
 
-MACHINE_CPUARCH ?= amd64
-CPUTYPE ?= core
+MACHINE_CPUARCH = amd64
+CPUTYPE = core
 
 INCDIR += -I/usr/local/include
-CFLAGS = -std=c11 $(optim) $(INCDIR) -Wall -pedantic -D_REENTRANT
+COMPILER_FEATURES = c++11
+
+# CFLAGS = -std=c11 $(optim) $(INCDIR) -Wall -pedantic -D_REENTRANT
+CFLAGS = $(optim) $(INCDIR) -Wall -pedantic -D_REENTRANT
 LDFLAGS += -L/usr/local/lib
 LDADD += $(LIBS)
 
