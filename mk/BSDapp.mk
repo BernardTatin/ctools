@@ -44,10 +44,12 @@ MACHINE_CPUARCH = amd64
 CPUTYPE = core
 
 INCDIR += -I/usr/local/include
-COMPILER_FEATURES = c++11
+CFLAGS = -std=c11 $(optim) $(INCDIR) -Wall -pedantic -D_REENTRANT
+COPTS = -std=c11 $(optim) $(INCDIR) -Wall -pedantic -D_REENTRANT
+.if ${MAKE} == "bmake"
+NOGCCERROR = 1
+.endif
 
-# CFLAGS = -std=c11 $(optim) $(INCDIR) -Wall -pedantic -D_REENTRANT
-CFLAGS = $(optim) $(INCDIR) -Wall -pedantic -D_REENTRANT
 LDFLAGS += -L/usr/local/lib
 LDADD += $(LIBS)
 
@@ -56,7 +58,9 @@ SRCS = $(C_SRC)
 
 MK_OBJDIRS = yes
 
+.if ${MAKE} != "bmake"
 .include <bsd.cpu.mk>
+.endif
 
 .include <bsd.prog.mk>
 
@@ -65,6 +69,7 @@ show:
 	@echo "MACHINE_CPUARCH: ${MACHINE_CPUARCH}"
 	@echo "MACHINE_CPU    : ${MACHINE_CPU}"
 	@echo "CFLAGS         : ${CFLAGS}"
+	@echo "MAKE           : ${MAKE}"
 
 dotest: all
 	./${PROG} LICENSE
