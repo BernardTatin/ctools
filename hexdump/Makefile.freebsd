@@ -33,7 +33,6 @@
 
 LIBS =
 
-optim = -O3
 
 _here := ${.PARSEDIR}
 libd = ${_here}/../lib
