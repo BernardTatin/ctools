@@ -38,16 +38,10 @@ LD = ${compiler}
 CC = ${compiler}
 COMPILER_TYPE = ${compiler}
 
-optim ?= -O3 -g0
-
-_os != uname
-
-MACHINE_CPUARCH ?= amd64
-CPUTYPE ?= core2
 
 INCDIR += -I/usr/local/include
-CFLAGS = $(INCDIR) -D_REENTRANT
-COPTS = -std=c11 $(optim) -Wall -pedantic
+CFLAGS += $(INCDIR) -D_REENTRANT
+CFLAGS += -std=c11
 
 .if ${MAKE} == "bmake" && ${_os} == "Linux"
 NOGCCERROR = 1
@@ -58,8 +52,6 @@ LDADD += $(LIBS)
 
 PROG = $(MAIN).$(CC).exe
 SRCS = $(C_SRC)
-
-MK_OBJDIRS = yes
 
 .include <bsd.prog.mk>
 
