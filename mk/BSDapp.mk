@@ -38,9 +38,20 @@ LD = ${compiler}
 CC = ${compiler}
 COMPILER_TYPE = ${compiler}
 
+.ifndef _os
+_os != uname
+.endif
+
+.if ${_os} == "Linux"
+.OBJDIR != pwd
+# SHAREDSTRINGS ?= 1
+.ifndef CPUTYPE
+CPUTYPE = core2
+.endif
+.endif
 
 INCDIR += -I/usr/local/include
-CFLAGS += $(INCDIR) -D_REENTRANT
+CFLAGS += -pipe $(INCDIR) -D_REENTRANT
 CFLAGS += -std=c11
 
 .if ${MAKE} == "bmake" && ${_os} == "Linux"
@@ -59,8 +70,9 @@ show:
 	@echo "CPUTYPE        : ${CPUTYPE}"
 	@echo "MACHINE_CPUARCH: ${MACHINE_CPUARCH}"
 	@echo "MACHINE_CPU    : ${MACHINE_CPU}"
-	@echo "CFLAGS         : ${CFLAGS}"
+	@echo "OBJDIR         : ${.OBJDIR}"
 	@echo "MAKE           : ${MAKE}"
+	@echo "CFLAGS         : ${CFLAGS}"
 
 dotest: all
 	./${PROG} LICENSE
