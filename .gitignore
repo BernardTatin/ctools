@@ -51,6 +51,7 @@ nbproject/
 *.frama
 .idea/
 *.komodoproject
+html/
 
 # watcom
 *.err
