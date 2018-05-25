@@ -32,17 +32,19 @@
 ##    SOFTWARE.
 
 compiler ?= clang
-.if ${compiler} == "gcc"
-LD = ${compiler}
-.endif
 
-#.if ${compiler} == "clang"
-#CLANG_ANALYZE_OUTPUT ?= html
-#CLANG_ANALYZE_OUTPUT_DIR ?= clang-analyze
+#.if ${compiler} == "gcc" || ${compiler:Mgcc[0-9]*} != ""
+#CC = ${compiler}
+#COMPILER_TYPE = gcc
+#LD = ${compiler}
+#.endif
+#
+#.if ${compiler:Mclang*} != ""
+#CC = ${compiler}
+#COMPILER_TYPE = clang
+#LD = ${compiler}
 #.endif
 
-CC = ${compiler}
-COMPILER_TYPE = ${compiler}
 
 .ifndef _os
 _os != uname
@@ -70,6 +72,9 @@ LDADD += $(LIBS)
 
 _cc = ${CC:E}
 __cc = ${_cc:C/^\/[^\/]+\///}
+.if ${__cc} == ""
+__cc = ${CC}
+.endif
 PROG = $(MAIN).$(__cc).exe
 SRCS = $(C_SRC)
 
@@ -77,19 +82,23 @@ SRCS = $(C_SRC)
 .include <bsd.clang-analyze.mk>
 
 show:
+	@echo "compiler       : ${compiler}"
+	@echo "compiler:Mgcc  : ${compiler:Mgcc[0-9]*}"
+	@echo "compiler:Mclang: ${compiler:Mclang*}"
 	@echo "MAIN           : ${MAIN}"
 	@echo "CC             : ${CC}"
-	@echo "CC             : ${__cc}"
+	@echo "__cc           : ${__cc}"
 	@echo "PROG           : ${PROG}"
 	@echo "CPUTYPE        : ${CPUTYPE}"
 	@echo "MACHINE_CPUARCH: ${MACHINE_CPUARCH}"
 	@echo "MACHINE_CPU    : ${MACHINE_CPU}"
 	@echo "OBJDIR         : ${.OBJDIR}"
+	@echo "OBJS           : ${OBJS}"
 	@echo "MAKE           : ${MAKE}"
-	@echo "CLANG_ANALYZE_CHECKERS: ${CLANG_ANALYZE_CHECKERS}"
-	@echo "CLANG_ANALYZE_FLAGS: ${CLANG_ANALYZE_FLAGS}"
-	@echo "CLANG_ANALYZE_SRCS: ${CLANG_ANALYZE_SRCS}"
-	@echo "CLANG_ANALYZE_OBJS: ${CLANG_ANALYZE_OBJS}"
+#	@echo "CLANG_ANALYZE_CHECKERS: ${CLANG_ANALYZE_CHECKERS}"
+#	@echo "CLANG_ANALYZE_FLAGS: ${CLANG_ANALYZE_FLAGS}"
+#	@echo "CLANG_ANALYZE_SRCS: ${CLANG_ANALYZE_SRCS}"
+#	@echo "CLANG_ANALYZE_OBJS: ${CLANG_ANALYZE_OBJS}"
 	@echo "CFLAGS         : ${CFLAGS}"
 
 dotest: all
