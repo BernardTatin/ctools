@@ -35,6 +35,12 @@ compiler ?= clang
 .if ${compiler} == "gcc"
 LD = ${compiler}
 .endif
+
+#.if ${compiler} == "clang"
+#CLANG_ANALYZE_OUTPUT ?= html
+#CLANG_ANALYZE_OUTPUT_DIR ?= clang-analyze
+#.endif
+
 CC = ${compiler}
 COMPILER_TYPE = ${compiler}
 
@@ -61,17 +67,28 @@ NOGCCERROR = 1
 LDFLAGS += -L/usr/local/lib
 LDADD += $(LIBS)
 
-PROG = $(MAIN).$(CC).exe
+_cc = ${CC:E}
+__cc = ${_cc:C/^\/[^\/]+\///}
+PROG = $(MAIN).$(__cc).exe
 SRCS = $(C_SRC)
 
 .include <bsd.prog.mk>
+.include <bsd.clang-analyze.mk>
 
 show:
+	@echo "MAIN           : ${MAIN}"
+	@echo "CC             : ${CC}"
+	@echo "CC             : ${__cc}"
+	@echo "PROG           : ${PROG}"
 	@echo "CPUTYPE        : ${CPUTYPE}"
 	@echo "MACHINE_CPUARCH: ${MACHINE_CPUARCH}"
 	@echo "MACHINE_CPU    : ${MACHINE_CPU}"
 	@echo "OBJDIR         : ${.OBJDIR}"
 	@echo "MAKE           : ${MAKE}"
+	@echo "CLANG_ANALYZE_CHECKERS: ${CLANG_ANALYZE_CHECKERS}"
+	@echo "CLANG_ANALYZE_FLAGS: ${CLANG_ANALYZE_FLAGS}"
+	@echo "CLANG_ANALYZE_SRCS: ${CLANG_ANALYZE_SRCS}"
+	@echo "CLANG_ANALYZE_OBJS: ${CLANG_ANALYZE_OBJS}"
 	@echo "CFLAGS         : ${CFLAGS}"
 
 dotest: all
