@@ -43,16 +43,17 @@ _os != uname
 .endif
 
 .if ${_os} == "Linux"
-.OBJDIR != pwd
-# SHAREDSTRINGS ?= 1
+.OBJDIR := ${.PARSEDIR}
+.endif
+
 .ifndef CPUTYPE
 CPUTYPE = core2
-.endif
 .endif
 
 INCDIR += -I/usr/local/include
 CFLAGS += -pipe $(INCDIR) -D_REENTRANT
 CFLAGS += -std=c11
+CFLAGS += -o ${*:C/^.*\///g}.o
 
 .if ${MAKE} == "bmake" && ${_os} == "Linux"
 NOGCCERROR = 1

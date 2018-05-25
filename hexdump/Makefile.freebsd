@@ -36,7 +36,7 @@ LIBS =
 
 _here := ${.PARSEDIR}
 libd = ${_here}/../lib
-INCDIR = -I${_here}/include -I${_here} -I${libd}/include
+INCDIR += -I${_here}/include -I${_here} -I${libd}/include
 
 
 MAIN = hexdump
