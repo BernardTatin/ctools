@@ -39,7 +39,7 @@ show_cpu:
 	@echo "CPU variables"
 	@echo
 .for var in MACHINE_CPUARCH MACHINE_CPU CPUTYPE
-	@echo "${var}: ${${var}}"
+	@printf "%-32s: %s\n" ${var} ${${var}}
 .endfor
 
 .PHONY: show_cpu

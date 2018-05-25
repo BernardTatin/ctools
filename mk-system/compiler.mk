@@ -31,6 +31,8 @@
 
 ## ======================================================================
 
+.if !target(__<compiler.mk>__)
+__<compiler.mk>__:
 compiler ?= clang
 
 _compiler = ${compiler:C/.*\///g}
@@ -53,8 +55,10 @@ show_compiler:
 	@echo "Compiler variables"
 	@echo
 .for var in CC LD compiler _compiler CFLAGS LDFLAGS COMPILER_FEATURES COMPILER_TYPE
-	@echo "${var}: ${${var}}"
+	@printf "%-32s: %s\n" ${var} ${${var}}
 .endfor
 
 .PHONY: show_compiler
-.endif
+.endif	# ²
+
+.endif	# .if !target(__<compiler.mk>__)
