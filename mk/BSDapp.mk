@@ -73,7 +73,9 @@ PROG = $(MAIN).$(__cc).exe
 SRCS = $(C_SRC)
 
 .include <bsd.prog.mk>
+.if ${_os} != "Linux"
 .include <bsd.clang-analyze.mk>
+.endif
 
 show:
 	@echo "MAIN           : ${MAIN}"
