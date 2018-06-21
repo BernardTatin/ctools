@@ -30,6 +30,7 @@
 
 
 RM = rm -f
+os := $(shell uname)
 
 libsrc=../lib/src
 ipath += -Iinclude
@@ -61,5 +62,6 @@ $(odir)/%.o: $(libsrc)/%.c
 clean:
 	@echo "SRC : $(SRC)"
 	@echo "OBJS: $(OBJS)"
+	@echo "os  : $(os)"
 	$(RM) $(EXE) $(OBJS)
 	$(RM) a.out core
