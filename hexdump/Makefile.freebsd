@@ -34,7 +34,7 @@
 LIBS =
 
 
-_here := ${.PARSEDIR}
+_here := ${.CURDIR}
 libd = ${_here}/../lib
 INCDIR = -I${_here}/include -I${_here} -I${libd}/include
 

@@ -48,11 +48,11 @@ COMPILER_TYPE = ${compiler}
 _os != uname
 .endif
 
-.OBJDIR != pwd
-.if ${_os} == "Linux"
-.OBJDIR != pwd
-# SHAREDSTRINGS ?= 1
-.endif
+# .OBJDIR = ./obj
+# .if ${_os} == "Linux"
+# .OBJDIR != pwd
+# # SHAREDSTRINGS ?= 1
+# .endif
 
 .ifndef CPUTYPE
 CPUTYPE = core2
@@ -76,7 +76,7 @@ SRCS = $(C_SRC)
 
 
 .include <bsd.prog.mk>
-.include <bsd.subdir.mk>
+# .include <bsd.subdir.mk>
 
 # .if ${_os} != "Linux"
 # .include <bsd.clang-analyze.mk>
@@ -91,6 +91,7 @@ show:
 	@echo "MACHINE_CPUARCH: ${MACHINE_CPUARCH}"
 	@echo "MACHINE_CPU    : ${MACHINE_CPU}"
 	@echo "OBJDIR         : ${.OBJDIR}"
+	@echo "_here          : ${_here}"
 	@echo "MAKE           : ${MAKE}"
 	@echo "CFLAGS         : ${CFLAGS}"
 # 	@echo "CLANG_ANALYZE_CHECKERS: ${CLANG_ANALYZE_CHECKERS}"
