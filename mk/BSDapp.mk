@@ -48,12 +48,14 @@ COMPILER_TYPE = ${compiler}
 _os != uname
 .endif
 
-.if ${_os} == "Linux"
-.OBJDIR != pwd
-# SHAREDSTRINGS ?= 1
+# .OBJDIR = ./obj
+# .if ${_os} == "Linux"
+# .OBJDIR != pwd
+# # SHAREDSTRINGS ?= 1
+# .endif
+
 .ifndef CPUTYPE
 CPUTYPE = core2
-.endif
 .endif
 
 INCDIR += -I/usr/local/include
@@ -72,26 +74,30 @@ __cc = ${_cc:C/^\/[^\/]+\///}
 PROG = $(MAIN).$(__cc).exe
 SRCS = $(C_SRC)
 
+
 .include <bsd.prog.mk>
-.if ${_os} != "Linux"
-.include <bsd.clang-analyze.mk>
-.endif
+# .include <bsd.subdir.mk>
+
+# .if ${_os} != "Linux"
+# .include <bsd.clang-analyze.mk>
+# .endif
 
 show:
 	@echo "MAIN           : ${MAIN}"
 	@echo "CC             : ${CC}"
-	@echo "CC             : ${__cc}"
+	@echo "__cc           : ${__cc}"
 	@echo "PROG           : ${PROG}"
 	@echo "CPUTYPE        : ${CPUTYPE}"
 	@echo "MACHINE_CPUARCH: ${MACHINE_CPUARCH}"
 	@echo "MACHINE_CPU    : ${MACHINE_CPU}"
 	@echo "OBJDIR         : ${.OBJDIR}"
+	@echo "_here          : ${_here}"
 	@echo "MAKE           : ${MAKE}"
-	@echo "CLANG_ANALYZE_CHECKERS: ${CLANG_ANALYZE_CHECKERS}"
-	@echo "CLANG_ANALYZE_FLAGS: ${CLANG_ANALYZE_FLAGS}"
-	@echo "CLANG_ANALYZE_SRCS: ${CLANG_ANALYZE_SRCS}"
-	@echo "CLANG_ANALYZE_OBJS: ${CLANG_ANALYZE_OBJS}"
 	@echo "CFLAGS         : ${CFLAGS}"
+# 	@echo "CLANG_ANALYZE_CHECKERS: ${CLANG_ANALYZE_CHECKERS}"
+# 	@echo "CLANG_ANALYZE_FLAGS: ${CLANG_ANALYZE_FLAGS}"
+# 	@echo "CLANG_ANALYZE_SRCS: ${CLANG_ANALYZE_SRCS}"
+# 	@echo "CLANG_ANALYZE_OBJS: ${CLANG_ANALYZE_OBJS}"
 
 dotest: all
 	./${PROG} LICENSE

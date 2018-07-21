@@ -4,6 +4,7 @@
 *.obj
 *.elf
 .depend*
+obj/
 
 # Precompiled Headers
 *.gch
