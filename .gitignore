@@ -52,6 +52,8 @@ nbproject/
 .idea/
 *.komodoproject
 html/
+.vscode/
+cmake-build-debug/
 
 # watcom
 *.err
