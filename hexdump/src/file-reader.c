@@ -112,7 +112,7 @@ void *fr_open(const char *file_name, void *fr_block) {
 /**
  * read data
  */
-int fr_read(void *fr_block, uint8_t *buffer, const int len) {
+int fr_read(void *fr_block, uint8_t *buffer, const size_t len) {
     TSFileReader *fr = (TSFileReader *)fr_block;
 	int real_len;
 

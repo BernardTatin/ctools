@@ -43,7 +43,7 @@
 #endif
 
 #if !defined(__WATCOMC__)
-static int min(int a, int b) {
+static inline size_t min(const size_t a, const size_t b) {
     if (a < b) {
         return a;
     } else {

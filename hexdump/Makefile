@@ -29,7 +29,7 @@
 ##    SOFTWARE.
 
 
-compiler ?= suncc
+compiler ?= gcc
 src = src
 
 lib=../lib

@@ -9,9 +9,9 @@ CC = gcc
 LD = $(CC)
 
 arch = -m64
-fullarch = -Wall -pedantic
+warns = -Wall -pedantic -Wextra
 optim = -O2
 
-CFLAGS = -std=c11 $(arch) $(optim) $(ipath) -errtags=yes -D_REENTRANT
+CFLAGS = -std=c11 $(arch) $(optim) $(ipath) -errtags=yes -D_REENTRANT $(warns)
 LDFLAGS = $(arch)
 

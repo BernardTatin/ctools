@@ -45,7 +45,7 @@ void *fr_open(const char *file_name, void *fr_block);
 /**
  * read data
  */
-int fr_read(void *fr_block, uint8_t *buffer, const int len);
+int fr_read(void *fr_block, uint8_t *buffer, size_t len);
 /**
  * close a file-reader
  */

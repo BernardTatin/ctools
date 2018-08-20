@@ -36,10 +36,10 @@ typedef struct _RBuffer {
 	uint8_t *buffer;
 	int ptr_out;
 	int count;
-	int size;
+	size_t size;
 } TSRBuffer;
 
-void *rb_allocate(const int buffer_size);
+void *rb_allocate(const size_t buffer_size);
 void rb_free(void *rb);
 
 static INLINE void *rb_get_buffer(void *vrb) {
@@ -58,6 +58,6 @@ static INLINE bool rb_isempty(TSRBuffer *rbuffer) {
 	return (count == 0) || (rbuffer->ptr_out+1 >= count);
 }
 
-int rb_read(void *vrb, void *buffer, const int len);
+int rb_read(void *vrb, void *buffer, const size_t len);
 #endif	/* RBUFFER_H */
 

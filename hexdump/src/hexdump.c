@@ -54,27 +54,26 @@ static void dohelp(const int exitCode) {
 
 static int hexdump(const char* fileName) {
     void *fd = fr_open(fileName, NULL);
-    int i;		// BOF: see how to work with stdc11 with Open Watcom
 
     if (fd != NULL) {
         ssize_t read_len;
 
         while ((read_len = fr_read(fd, buffer, HLEN)) > 0) {
             char *dst = line;
-            int rest = read_len;
+            size_t rest = read_len;
             uint8_t *src = buffer;
             uint8_t *old_src = src;
             int imax = min(HLEN, rest);
 
             dst += sprintf(dst, "%08lx  ", fr_before_position(fd));
-            for (i = 0; i < imax; i++) {
+            for (int i = 0; i < imax; i++) {
                 dst = put_hex_byte(dst, *(src++));
                 if (i == 7) {
                     *(dst++) = ' ';
                 }
             }
             if (imax < HLEN) {
-                for (i = imax; i < HLEN; i++) {
+                for (int i = imax; i < HLEN; i++) {
                     dst = put3spaces(dst);
                     if (i == 7) {
                         *(dst++) = ' ';
@@ -84,7 +83,7 @@ static int hexdump(const char* fileName) {
             src = old_src;
             *(dst++) = ' ';
             *(dst++) = '|';
-            for (i = 0; i < imax; i++) {
+            for (int i = 0; i < imax; i++) {
                 *(dst++) = normalize_byte(*(src++));
             }
             *(dst++) = '|';
@@ -103,9 +102,8 @@ static int hexdump(const char* fileName) {
 
 int main(int argn, char *argv[]) {
     int retCode = SUCCESS;
-    int i;
 
-    for (i = 1; i < argn; i++) {
+    for (int i = 1; i < argn; i++) {
         char *arg = argv[i];
 
         if (strcmp(arg, "--help") == 0) {
