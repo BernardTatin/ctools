@@ -120,3 +120,4 @@ build/
 *.fls
 *.*_latexmk
 *.run.xml
+compile_commands.json
